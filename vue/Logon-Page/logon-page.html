@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <title>Description</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/c4254e24a8.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <nav id="navBar" class="navbar-white">
+      <img src="../image/logomarque.svg" class="logo" />
+      <ul class="nav-links">
+        <li><a href="#" class="active"> Logements populaires</a></li>
+        <li><a href="#">Details de reservations</a></li>
+        <li><a href="#">Assistance</a></li>
+        <li><a href="#">Avis</a></li>
+      </ul>
+      <a href="#" class="register-btn">Username12345</a>
+      <i class="fas fa-bars" onclick="togglebtn()"></i>
+    </nav>
+    <div class="container">
+      <div class="info">
+        <p>75+ Logements · Inserer la date.</p>
+        <a class="link-info" href="#">
+          Veuillez noter que toute locations doit etre realisee en respect des
+          normes de vigeures dues au COVID-19
+        </a>
+        <br />
+
+        <h1>Logements disponibles pour vous Username</h1>
+
+        <div class="info__orders">
+          <button class="info__orders--button" onclick="orderByNameAZ()">
+            A-Z
+          </button>
+
+          <button class="info__orders--button" onclick="orderByNameZA()">
+            Z-A
+          </button>
+
+          <button class="info__orders--button" onclick="orderByType()">
+            Type
+          </button>
+
+          <button class="info__orders--button" onclick="orderByPriceCrescent()">
+            Moins Cher
+          </button>
+
+          <button
+            class="info__orders--button"
+            onclick="orderByPriceDecreasing()"
+          >
+            Plus cher
+          </button>
+
+          <input
+            id="searchInput"
+            class="info__orders--button"
+            onkeyup="handleSearch()"
+            placeholder="Rechercher un logement"
+          />
+        </div>
+      </div>
+
+      <hr class="line" />
+
+      <div id="cards">
+        <article class="card__item">
+          <img
+            class="card__item--image"
+            src="/Image/AdobeStock_100591416.jpeg"
+            alt="Photo appartement"
+            c
+          />
+          <h3 class="card__description--name">Appartement/Maison</h3>
+          <p class="card__description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia,
+            molestiae eum aspernatur omnis labore amet sit veritatis velit,
+            explicabo modi, facere natus a cupiditate accusamus aut est
+            voluptas? Voluptates, deleniti?
+          </p>
+          <p class="card__description--price">
+            <strong>300€ </strong>Le Week-End
+          </p>
+          <p class="card__description--type">Gestion du logement</p>
+        </article>
+        <article class="card__item">
+          <img
+            class="card__item--image"
+            src="/Image/AdobeStock_100591416.jpeg"
+            alt="Photo appartement"
+            c
+          />
+          <h3 class="card__description--name">Appartement/Maison</h3>
+          <p class="card__description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia,
+            molestiae eum aspernatur omnis labore amet sit veritatis velit,
+            explicabo modi, facere natus a cupiditate accusamus aut est
+            voluptas? Voluptates, deleniti?
+          </p>
+          <p class="card__description--price">
+            <strong>50€ </strong>Le Week-End
+          </p>
+          <p class="card__description--type">Gestion du logement</p>
+        </article>
+        <article class="card__item">
+          <img
+            class="card__item--image"
+            src="/Image/AdobeStock_100591416.jpeg"
+            alt="Photo appartement"
+            c
+          />
+          <h3 class="card__description--name">Appartement/Maison</h3>
+          <p class="card__description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia,
+            molestiae eum aspernatur omnis labore amet sit veritatis velit,
+            explicabo modi, facere natus a cupiditate accusamus aut est
+            voluptas? Voluptates, deleniti?
+          </p>
+          <p class="card__description--price">
+            <strong>200€ </strong>Le Week-End
+          </p>
+          <p class="card__description--type">Gestion du logement</p>
+        </article>
+        <article class="card__item">
+          <img
+            class="card__item--image"
+            src="/Image/AdobeStock_100591416.jpeg"
+            alt="Photo appartement"
+            c
+          />
+          <h3 class="card__description--name">Appartement/Maison</h3>
+          <p class="card__description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia,
+            molestiae eum aspernatur omnis labore amet sit veritatis velit,
+            explicabo modi, facere natus a cupiditate accusamus aut est
+            voluptas? Voluptates, deleniti?
+          </p>
+          <p class="card__description--price">
+            <strong>60€ </strong>Le Week-End
+          </p>
+          <p class="card__description--type">Gestion du logement</p>
+        </article>
+        <article class="card__item">
+          <img
+            class="card__item--image"
+            src="/Image/AdobeStock_100591416.jpeg"
+            alt="Photo appartement"
+            c
+          />
+          <h3 class="card__description--name">Appartement/Maison</h3>
+          <p class="card__description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia,
+            molestiae eum aspernatur omnis labore amet sit veritatis velit,
+            explicabo modi, facere natus a cupiditate accusamus aut est
+            voluptas? Voluptates, deleniti?
+          </p>
+          <p class="card__description--price">
+            <strong>100€ </strong>Le Week-End
+          </p>
+          <p class="card__description--type">Gestion du logement</p>
+        </article>
+        <article class="card__item">
+          <img
+            class="card__item--image"
+            src="/Image/AdobeStock_100591416.jpeg"
+            alt="Photo appartement"
+            c
+          />
+          <h3 class="card__description--name">Appartement/Maison</h3>
+          <p class="card__description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia,
+            molestiae eum aspernatur omnis labore amet sit veritatis velit,
+            explicabo modi, facere natus a cupiditate accusamus aut est
+            voluptas? Voluptates, deleniti?
+          </p>
+          <p class="card__description--price">
+            <strong>200€ </strong>Le Week-End
+          </p>
+          <p class="card__description--type">Gestion du logement</p>
+        </article>
+        <article class="card__item">
+          <img
+            class="card__item--image"
+            src="/Image/AdobeStock_100591416.jpeg"
+            alt="Photo appartement"
+            c
+          />
+          <h3 class="card__description--name">Appartement/Maison</h3>
+          <p class="card__description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia,
+            molestiae eum aspernatur omnis labore amet sit veritatis velit,
+            explicabo modi, facere natus a cupiditate accusamus aut est
+            voluptas? Voluptates, deleniti?
+          </p>
+          <p class="card__description--price">
+            <strong>400€ </strong>Le Week-End
+          </p>
+          <p class="card__description--type">Gestion du logement</p>
+        </article>
+        <article class="card__item">
+          <img
+            class="card__item--image"
+            src="/Image/AdobeStock_100591416.jpeg"
+            alt="Photo appartement"
+            c
+          />
+          <h3 class="card__description--name">Appartement/Maison</h3>
+          <p class="card__description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia,
+            molestiae eum aspernatur omnis labore amet sit veritatis velit,
+            explicabo modi, facere natus a cupiditate accusamus aut est
+            voluptas? Voluptates, deleniti?
+          </p>
+          <p class="card__description--price">
+            <strong>Aucune </strong>intervention necessaire
+          </p>
+          <p class="card__description--type">Gestion du logement</p>
+        </article>
+        <article class="card__item">
+          <img
+            class="card__item--image"
+            src="/Image/AdobeStock_100591416.jpeg"
+            alt="Photo appartement"
+            c
+          />
+          <h3 class="card__description--name">Appartement/Maison</h3>
+          <p class="card__description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia,
+            molestiae eum aspernatur omnis labore amet sit veritatis velit,
+            explicabo modi, facere natus a cupiditate accusamus aut est
+            voluptas? Voluptates, deleniti?
+          </p>
+          <p class="card__description--price">
+            <strong>Aucune </strong>intervention necessaire
+          </p>
+          <p class="card__description--type">Gestion du logement</p>
+        </article>
+        <article class="card__item">
+          <img
+            class="card__item--image"
+            src="/Image/AdobeStock_100591416.jpeg"
+            alt="Photo appartement"
+            c
+          />
+          <h3 class="card__description--name">Appartement/Maison</h3>
+          <p class="card__description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia,
+            molestiae eum aspernatur omnis labore amet sit veritatis velit,
+            explicabo modi, facere natus a cupiditate accusamus aut est
+            voluptas? Voluptates, deleniti?
+          </p>
+          <p class="card__description--price">
+            <strong>Aucune </strong>intervention necessaire
+          </p>
+          <p class="card__description--type">Gestion du logement</p>
+        </article>
+        <article class="card__item">
+          <img
+            class="card__item--image"
+            src="/Image/AdobeStock_100591416.jpeg"
+            alt="Photo appartement"
+            c
+          />
+          <h3 class="card__description--name">Appartement/Maison</h3>
+          <p class="card__description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia,
+            molestiae eum aspernatur omnis labore amet sit veritatis velit,
+            explicabo modi, facere natus a cupiditate accusamus aut est
+            voluptas? Voluptates, deleniti?
+          </p>
+          <p class="card__description--price">
+            <strong>Aucune </strong>intervention necessaire
+          </p>
+          <p class="card__description--type">Gestion du logement</p>
+        </article>
+        <article class="card__item">
+          <img
+            class="card__item--image"
+            src="/Image/AdobeStock_100591416.jpeg"
+            alt="Photo appartement"
+            c
+          />
+          <h3 class="card__description--name">Appartement/Maison</h3>
+          <p class="card__description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia,
+            molestiae eum aspernatur omnis labore amet sit veritatis velit,
+            explicabo modi, facere natus a cupiditate accusamus aut est
+            voluptas? Voluptates, deleniti?
+          </p>
+          <p class="card__description--price">
+            <strong>Aucune </strong>intervention necessaire
+          </p>
+          <p class="card__description--type">Gestion du logement</p>
+        </article>
+        <article class="card__item">
+          <img
+            class="card__item--image"
+            src="/Image/AdobeStock_100591416.jpeg"
+            alt="Photo appartement"
+            c
+          />
+          <h3 class="card__description--name">Appartement/Maison</h3>
+          <p class="card__description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia,
+            molestiae eum aspernatur omnis labore amet sit veritatis velit,
+            explicabo modi, facere natus a cupiditate accusamus aut est
+            voluptas? Voluptates, deleniti?
+          </p>
+          <p class="card__description--price">
+            <strong>Aucune </strong>intervention necessaire
+          </p>
+          <p class="card__description--type">Gestion du logement</p>
+        </article>
+        <article class="card__item">
+          <img
+            class="card__item--image"
+            src="/Image/AdobeStock_100591416.jpeg"
+            alt="Photo appartement"
+            c
+          />
+          <h3 class="card__description--name">Appartement/Maison</h3>
+          <p class="card__description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia,
+            molestiae eum aspernatur omnis labore amet sit veritatis velit,
+            explicabo modi, facere natus a cupiditate accusamus aut est
+            voluptas? Voluptates, deleniti?
+          </p>
+          <p class="card__description--price">
+            <strong>Aucune </strong>intervention necessaire
+          </p>
+          <p class="card__description--type">Gestion du logement</p>
+        </article>
+        <article class="card__item">
+          <img
+            class="card__item--image"
+            src="/Image/AdobeStock_100591416.jpeg"
+            alt="Photo appartement"
+            c
+          />
+          <h3 class="card__description--name">Appartement/Maison</h3>
+          <p class="card__description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia,
+            molestiae eum aspernatur omnis labore amet sit veritatis velit,
+            explicabo modi, facere natus a cupiditate accusamus aut est
+            voluptas? Voluptates, deleniti?
+          </p>
+          <p class="card__description--price">
+            <strong>Aucune </strong>intervention necessaire
+          </p>
+          <p class="card__description--type">Gestion du logement</p>
+        </article>
+        <article class="card__item">
+          <img
+            class="card__item--image"
+            src="/Image/AdobeStock_100591416.jpeg"
+            alt="Photo appartement"
+            c
+          />
+          <h3 class="card__description--name">Appartement/Maison</h3>
+          <p class="card__description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia,
+            molestiae eum aspernatur omnis labore amet sit veritatis velit,
+            explicabo modi, facere natus a cupiditate accusamus aut est
+            voluptas? Voluptates, deleniti?
+          </p>
+          <p class="card__description--price">
+            <strong>Aucune </strong>intervention necessaire
+          </p>
+          <p class="card__description--type">Gestion du logement</p>
+        </article>
+      </div>
+
+      <hr class="line" />
+
+      <div
+        style="
+          display: flex;
+          text-decoration: none;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <ul
+          style="
+            display: flex;
+            list-style-type: none;
+            flex-direction: row;
+            text-decoration: none;
+            color: black;
+          "
+        >
+          <li>
+            <a
+              href="#"
+              style="
+                text-decoration: none;
+                color: black;
+                padding: 10px;
+                font-weight: bold;
+              "
+              >1</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              style="
+                text-decoration: none;
+                color: black;
+                padding: 10px;
+                font-weight: bold;
+              "
+              >2</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              style="
+                text-decoration: none;
+                color: black;
+                padding: 10px;
+                font-weight: bold;
+              "
+              >3</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer">
+        <a href="https://facebook.com"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://youtube.com"><i class="fab fa-youtube"></i></a>
+        <a href="https://twitter.com"><i class="fab fa-twitter"></i></a>
+        <a href="https://linkedin.com"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://instagram.com"><i class="fab fa-instagram"></i></a>
+        <hr />
+        <p>Copyright 2023.</p>
+      </div>
+    </div>
+
+    <script>
+      let navBar = document.getElementById("navBar");
+      function togglebtn() {
+        navBar.classList.toggle("hidemenu");
+      }
+    </script>
+
+    <script
+      src="https://kit.fontawesome.com/db48a25407.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
