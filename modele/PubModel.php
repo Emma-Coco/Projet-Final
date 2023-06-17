@@ -261,6 +261,7 @@ class PubModel
         }
     }
 
+
     public static function getAllDestinations() {
         try {
             $con = DBConnexion::getDBConnexion();
@@ -277,7 +278,7 @@ class PubModel
                 if (!empty($matches)) {
                     $arrondissement = $matches[0];
                 }
-                $destinations[] = $arrondissement;
+                $destinations[] = $arrondissement . 'è arrondissement';
             }
     
             return $destinations;
@@ -286,8 +287,8 @@ class PubModel
         }
     }
     
-
 }
+
 
 
 
