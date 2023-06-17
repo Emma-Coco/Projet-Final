@@ -31,10 +31,18 @@
         </div>
       </a>
       <form action="../controlleurs/pub_controlleur.php" method="post">
-        <input type="hidden" name="action" value="searchLogements" />
-        <div class="header__info">
-          <div>
-            <input name="destination" class="header__info--input" placeholder="Destination" />
+      <input type="hidden" name="action" value="searchLogements" />
+      <div class="header__info">
+        <div>
+          <select name="destination" class="header__info--input" style="border: none;">
+            <option value="">Sélectionnez un arrondissement</option>
+            <?php
+            $allDestinations = PubModel::getAllDestinations();
+            foreach ($allDestinations as $destination) {
+              echo '<option value="' . $destination . '">' . $destination . '</option>';
+            }
+            ?>
+          </select>
           </div>
           <div>
             <input name="depart" class="header__info--input" placeholder="date depart (yyyy/mm/dd)" />

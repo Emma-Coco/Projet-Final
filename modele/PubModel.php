@@ -185,8 +185,11 @@ class PubModel
             }
 
             return $logements_disponibles;
+
         }
     }
+
+
 
     // une fonction qui ramene tous les details de donnees sur un logement specifique (pour la page detail de logement)
     public static function getDetailsLogement($id_logement) // recuperer les url des images de logements
@@ -257,6 +260,36 @@ class PubModel
             return $img_url;
         }
     }
+
+
+    public static function getAllDestinations() {
+        try {
+            $con = DBConnexion::getDBConnexion();
+            $query = "SELECT DISTINCT SUBSTRING_INDEX(adress, ' ', 1) AS arrondissement FROM logement";
+            $stmt = $con->prepare($query);
+            $stmt->execute();
+            $addresses = $stmt->fetchAll(PDO::FETCH_COLUMN);
+            $destinations = [];
+    
+            foreach ($addresses as $address) {
+                // Extraction du nombre de l'arrondissement
+                $arrondissement = '';
+                preg_match('/(\d+)/', $address, $matches);
+                if (!empty($matches)) {
+                    $arrondissement = $matches[0];
+                }
+                $destinations[] = $arrondissement . 'è arrondissement';
+            }
+    
+            return $destinations;
+        } catch (PDOException $e) {
+            die('Erreur de connexion à la base de données : ' . $e->getMessage());
+        }
+    }
+    
 }
+
+
+
 
 ?>
