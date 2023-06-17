@@ -247,23 +247,58 @@ nav.navbar-white .fa-bars{
     display: block;
 }
 .check-form div{
-    padding: 20px;
-    width: 20%;
+    /*padding: 20px;
+    width: 20%;*/
 }
+
+div .start-date{
+    margin-right:80px;
+    font-size: medium;
+}
+
+div .start-date label{
+    font-size: 15px;
+}
+
+div .end-date{
+    margin-right:80px;
+    font-size: medium;
+}
+
+div .end-date label{
+    font-size: 15px;
+}
+
+
+div .validation{
+    margin-right:80px;
+}
+
+.check-form input.validation {
+    font-size: 15px;
+    font-weight: 500;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
 .check-form input{
     background: transparent;
     border: 0;
     outline: none;
 }
 .check-form button{
-    background: #ff5361;
+    /*background: #ff5361;*/
     border: 0;
     outline: none;
     color: #fff;
-    padding: 18px;
-    width: 20%;
+    padding: 13px;
+    width: 10%;
     font-size: 16px;
 }
+
+
+
 .guest-field{
     flex: 1;
 }

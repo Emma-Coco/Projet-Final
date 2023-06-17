@@ -5,9 +5,28 @@
   <meta charset="UTF-8">
   <title>Description</title>
   <link rel="stylesheet" href="appartement-style.css">
+  <link rel="stylesheet" href="../css/styleapp.css">
+  <link rel="stylesheet" href="../css/vanilla-calendar/vanilla-calendar.min.css">
+  <link rel="stylesheet" href="../css/vanilla-calendar/themes/light.min.css">
   <script src="https://kit.fontawesome.com/c4254e24a8.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
+<style type="text/css">
+        .NonReserve {
+          background-color:white !important;
+          color:blue !important;
+        }
+        .Reserve {
+          background-color:yellow !important;
+          color:red !important;
+        }
+        .Modified {
+          background-color:pink !important;
+          color:red !important;
+        }
+      </style>
+
 
 
 <nav id="navBar" class="navbar-white">
@@ -63,31 +82,28 @@
   </div>
   <hr class="line">
 
-  <form class="check-form">
 
-    <div>
-      <label>Check-in</label>
-      <input type="date" placeholder="Add date">
+    <form class="check-form" action="../controlleurs/booking_controlleur.php" method="POST">
+    <div class="error">
+        <?php 
+        if(isset($reponseBooking)){
+            echo $reponseBooking;
+            }
+            ?>
     </div>
-
-
-    <div>
-      <label>Check-out</label>
-      <input type="date" placeholder="Add date">
-    </div>
-
-    <div>
-      <label>Adults:</label> <br>
-      <input type="number" min="0" max="5" placeholder="0">
-    </div>
-    <div>
-      <label>Children:</label> <br>
-      <input type="number" min="0" max="5" placeholder="0">
-    </div>
-
-    <button type="submit">Check Availability</button>
-
-  </form>
+      <div class="start-date">
+          <label for="start_date">Arrivée :</label>
+          <input type="date" id="start_date" name="start_date" required><br><br>
+      </div>
+      <div class="end-date">
+          <label for="end_date">Départ :</label>
+          <input type="date" id="end_date" name="end_date" required><br><br>
+      </div>
+      <!--Création du formulaire avec la date d'arrivée et de départ-->
+      <input class = "validation" type="submit" value="Vérifier la disponibilité">
+      <div id="calendar"></div>
+        <!--<button type="submit">Check Availability</button>-->
+    </form>
 
 
 
@@ -126,21 +142,6 @@
   <p>It's like a home away from home.</p>
   <hr class="line">
 
-  <div class="host">
-    <img src="/Appartements_Images/AdobeStock_40582551_Preview.jpeg">
-    <div>
-      <h2>Hosted by Claire</h2>
-      <p><span>
-           <i class="fas fa-star"></i>
-           <i class="fas fa-star"></i>
-           <i class="fas fa-star"></i>
-           <i class="fas fa-star"></i>
-           <i class="fas fa-star-half-alt"></i>
-        </span>&nbsp; &nbsp; 245 reviews &nbsp; &nbsp; Response rate 100% &nbsp; &nbsp; Response time: 60 min</p>
-    </div>
-  </div>
-  <a href="#" class="contact-host">Contact Host</a>
-</div>
 
 
 
@@ -161,7 +162,27 @@
 
 
 
+<script src="../css/vanilla-calendar/vanilla-calendar.min.js"></script>
+      
 
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+      const calendar = new VanillaCalendar('#calendar', {
+        // modification à la création
+        //1. Faire une méthode statique qui récupère toutes les dates réservées pour un logement
+        //Select strating date et ending date where id logement et where cancelled = 0... (select, fetch_all, fect_assoc)
+        popups: {
+          '2023-06-26': {modifier: 'Reserve'},
+          //ouvrir une balise php pour appeler la méthode statique de ma classe (avec les::)
+        }
+      });
+        calendar.init();
+
+      });
+
+      var elements = document.getElementsByClassName("vanilla-calendar-days vanilla-calendar-days_selecting"); 
+      console.log(elements);
+    </script>
 
 
 <script>

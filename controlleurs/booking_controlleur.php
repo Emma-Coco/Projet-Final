@@ -60,6 +60,7 @@ if (isset($_POST['confirm_booking'])) {
     $stmt->execute();
     $logement_id = $con->lastInsertId();
     //redirection vers page temporaire 
+    header('location:/vue/Validation_reservation.php?startDate=' . urlencode($startDate) . '&endDate=' . urlencode($endDate));
 } elseif (isset($_POST['cancel_booking'])) {
     header('location:/vue/index.php');
 }
