@@ -163,7 +163,14 @@
 
 
 <script src="../css/vanilla-calendar/vanilla-calendar.min.js"></script>
-      
+
+ <?php
+require_once '../modele/Booking.php';
+
+$logementId = $_GET['logementId'];
+$reservedDates = BookingManager::getReservedDates($logementId);
+
+?>
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
