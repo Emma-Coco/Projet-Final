@@ -28,12 +28,15 @@ class BookingManager {
 
         try {
             $con=DBConnexion::getDBConnexion();
-            $query = "SELECT id
+            $query = "SELECT COUNT(*)
                       FROM booking 
                       WHERE id_logement = :logementId 
-                        AND NOT((:start_date > starting_date) AND (:start_date < ending_date)) 
-                        AND NOT((:end_date > starting_date) AND (:end_date < ending_date))
-                        AND NOT((starting_date < :start_date) AND (ending_date > :end_date))
+                        AND NOT (ending_date < :end_date)
+                        AND (ending_date > :start_date)
+                        AND(starting_date>:start_date AND ending_date < :end_date)
+                        AND (starting_date<:end_date)
+                        AND NOT (starting_date > :end_date)
+                        AND (starting_date < :start_date AND ending_date > :end_date)
                         AND (cancelled = 0)";
             $stmt = $con->prepare($query);
             $stmt->bindParam(':logementId', $id_logement, PDO::PARAM_INT);
@@ -41,9 +44,14 @@ class BookingManager {
             $stmt->bindParam(':end_date', $end_date);
             $stmt->execute();
 
-            $reservedDates = $stmt->fetchColumn();
-
-            return $reservedDates;
+            $reservedDates = $stmt->fetchAll(PDO::FETCH_NUM);
+            if($reservedDates[0][0]==0){
+            return true;
+            }
+            else{
+            return false;
+            }
+            
         } catch (PDOException $e) {
             die('Erreur de connexion à la base de données : ' . $e->getMessage());
         }

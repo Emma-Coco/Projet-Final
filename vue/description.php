@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
   <title>Description</title>
-  <link rel="stylesheet" href="appartement-style.css">
+  <link rel="stylesheet" href="../vue/appartement-style.css">
   <link rel="stylesheet" href="../css/styleapp.css">
   <link rel="stylesheet" href="../css/vanilla-calendar/vanilla-calendar.min.css">
   <link rel="stylesheet" href="../css/vanilla-calendar/themes/light.min.css">
@@ -30,7 +30,7 @@
 
 
 <nav id="navBar" class="navbar-white">
-  <img src="/Appartements_Images/logomarque.svg" class="logo">
+  <img src="/vue/Images/image/logomarque.svg" class="logo">
   <ul class="nav-links">
     <li><a href="#" class="active"> Popular Places</a></li>
     <li><a href="#">Travel Outside</a> </li>
@@ -59,11 +59,11 @@
   </div>
 
   <div class="slider">
-    <img src="/Appartements_Images/AdobeStock_100591416.jpeg" alt="img1" class="img__slider active" />
-    <img src="/Appartements_Images/AdobeStock_467748395.jpeg" alt="img2" class="img__slider" />
-    <img src="/Appartements_Images/AdobeStock_467748372.jpeg" alt="img3" class="img__slider" />
-    <img src="/Appartements_Images/AdobeStock_472388856.jpeg" alt="img4" class="img__slider" />
-    <img src="/Appartements_Images/AdobeStock_472388966.jpeg" alt="img5" class="img__slider" />
+    <img src="/vue/Images/image/AdobeStock_100591416.jpeg" alt="img1" class="img__slider active" />
+    <img src="/vue/Images/image/AdobeStock_467748395.jpeg" alt="img2" class="img__slider" />
+    <img src="/vue/Images/image/AdobeStock_467748372.jpeg" alt="img3" class="img__slider" />
+    <img src="/vue/Images/image/AdobeStock_472388856.jpeg" alt="img4" class="img__slider" />
+    <img src="/vue/Images/image/AdobeStock_472388966.jpeg" alt="img5" class="img__slider" />
     <div class="suivant">
       <i class="fas fa-chevron-circle-right"></i>
     </div>
@@ -83,7 +83,7 @@
   <hr class="line">
 
 
-    <form class="check-form" action="../controlleurs/booking_controlleur.php" method="POST">
+    <form class="check-form" action="../controlleurs/booking_controlleur.php?logement_id=<?=$logementId?>" method="POST">
     <div class="error">
         <?php 
         if(isset($reponseBooking)){
@@ -167,9 +167,22 @@
  <?php
 require_once '../modele/Booking.php';
 
-$logementId = $_GET['logementId'];
+
+if(isset($_GET['logement_id'])){
+  $logementId = $_GET['logement_id'];
+  }
+  else{
+    $logementId = -1;
+  }
+
+
 $reservedDates = BookingManager::getReservedDates($logementId);
 
+// Affichage des dates réservées
+$calendarDates ="";
+foreach ($reservedDates as $reservation) {
+  $calendarDates .= "'".$reservation['starting_date'].":".$reservation['ending_date']."',";
+}
 ?>
 
     <script>
@@ -178,10 +191,18 @@ $reservedDates = BookingManager::getReservedDates($logementId);
         // modification à la création
         //1. Faire une méthode statique qui récupère toutes les dates réservées pour un logement
         //Select strating date et ending date where id logement et where cancelled = 0... (select, fetch_all, fect_assoc)
-        popups: {
+        /*popups: {
           '2023-06-26': {modifier: 'Reserve'},
           //ouvrir une balise php pour appeler la méthode statique de ma classe (avec les::)
-        }
+        },*/
+        settings: {
+          selection: {
+          day: 'multiple',
+          },
+          selected: {
+            dates: [<?=$calendarDates?>],
+          },
+        },
       });
         calendar.init();
 
@@ -198,7 +219,7 @@ $reservedDates = BookingManager::getReservedDates($logementId);
     navBar.classList.toggle("hidemenu");
   }
 </script>
-<script src="description-appart.js"></script>
+<script src="/vue/description-appart.js"></script>
 <script src="https://kit.fontawesome.com/db48a25407.js" crossorigin="anonymous"></script>
 </body>
 </html>
