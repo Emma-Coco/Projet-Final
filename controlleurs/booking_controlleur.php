@@ -21,28 +21,29 @@ if (isset($_POST['start_date']) && isset($_POST['end_date'])) {
     
     if ($startDate[0] >= $dateNow->getTimestamp()) {
         if ($endDate < $startDate) {
-            $reponseBooking = "La date de fin du séjour ne peut pas être inférieure à la date de début !";
+            $reponseBooking = '<div style="position: absolute; top: 980px; color: #FF8675; font-size: 20px;">' . "La date de fin du séjour ne peut pas être inférieure à la date de début !" . '</div>';
         } else {
-            $nombreDeReservationsEnConflit = BookingManager::isDatesAvailable(date("Y-m-d", $startDate[0]), date("Y-m-d", $endDate[0]), 3);
+            $isDatesAvailable = BookingManager::isDatesAvailable(date("Y-m-d", $startDate[0]), date("Y-m-d", $endDate[0]), $logementId);
             
-            if($nombreDeReservationsEnConflit = 0){
+            if($isDatesAvailable){
                 
-                $reponseBooking = "La plage est libre. Souhaitez-vous confirmer cette réservation?";
-        
+                $reponseBooking = '<div style="position: absolute; top: 1080px; font-weight: bold; font-size: 20px;">' . "La plage est libre. Souhaitez-vous confirmer cette réservation?" . '</div>';
 
-                echo '<div> <form action="" method="post">';
+
+                echo '<div> <form action="/controlleurs/booking_controlleur.php?logement_id='.$logementId.'" method="post">';
                 echo '<input type="hidden" name="start_date" value="' . $_POST['start_date'] . '">';
                 echo '<input type="hidden" name="end_date" value="' . $_POST['end_date'] . '">';
-                echo '<input type="submit" name="confirm_booking" value="Confirmer">';
-                echo '<input type="submit" name="cancel_booking" value="Annuler">';
+                echo '<input type="submit" name="confirm_booking" style="background-color: #B4DEB8; position: absolute; top: 1250px; left: 240px; padding: 10px; border-radius: 10px;" value="Confirmer">';
+                echo '<input type="submit" name="cancel_booking" style="background-color: #FF8675; position: absolute; top: 1250px; left: 350px; padding: 10px; border-radius: 10px;" value="Annuler">';
+
                 echo '</form> </div>';
             }
             else{
-                echo "Les dates sélectionnées sont déjà réservées.";
+                echo '<div style="position: absolute; top: 1080px; left: 240px; color: #FF8675; font-size: 20px;">' . "Les dates sélectionnées sont déjà réservées." . '</div>';
             }
         }
     } else {
-        $reponseBooking = "Vous ne pouvez pas définir une date dans le passé";
+        $reponseBooking = '<div style="position: absolute; top: 980px; color: #FF8675; font-size: 20px;">' . "Vous ne pouvez pas définir une date dans le passé !" . '</div>';
     }
 }
  
@@ -56,46 +57,17 @@ if (isset($_POST['confirm_booking'])) {
     $stmt->bindParam(':starting_date', $startDate);
     $endDate = date("Y-m-d", $endDate[0]);
     $stmt->bindParam(':ending_date', $endDate);
-    $stmt->bindParam(':id_logement', $_GET['logementId']);
+    $stmt->bindParam(':id_logement', $_GET['logement_id']);
     $stmt->execute();
     $logement_id = $con->lastInsertId();
     //redirection vers page temporaire 
     header('location:/vue/Validation_reservation.php?startDate=' . urlencode($startDate) . '&endDate=' . urlencode($endDate));
 } elseif (isset($_POST['cancel_booking'])) {
-    header('location:/vue/index.php');
+    header('location:/controlleurs/pub_controlleur.php?action=main');
 }
 
-   //if()
-
-
-/*if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Récupérer les valeurs envoyées depuis le formulaire
-    $start_date = $_POST['start_date'];
-    $end_date = $_POST['end_date'];
-    BookingManager::insertDate($start_date,$end_date);
-}
-    
-// Récupérer l'ID du logement depuis l'URL
-/*if (isset($_GET['logementId'])) {
-    $logementId = $_GET['logementId'];
-} else {
-    // Gérer le cas où l'ID du logement n'est pas fourni
-    die('ID du logement non fourni');
-}
-echo 'test';
-*/
-
-
-// Utilisation de la méthode statique pour récupérer les dates réservées pour un logement spécifique
-$reservedDates = BookingManager::getReservedDates($logementId);
-
-// Affichage des dates réservées
-foreach (BookingManager::getReservedDates($logementId) as $reservation) {
-    echo 'Date de début : ' . $reservation['starting_date'] . '<br>';
-    echo 'Date de fin : ' . $reservation['ending_date'] . '<br>';
-    echo '--------------------<br>';
-}
 
 include('../vue/description.php');
+
 
 ?>
