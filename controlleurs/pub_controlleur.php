@@ -52,7 +52,7 @@ if ($action == 'detailsLogement') {
     $id_logement = $_REQUEST['id_logement'];
     $logement = PubModel::getDetailsLogement($id_logement);
     if ($logement != NULL)
-        include '../vue/details_logement.php';
+        include '../vue/description.php';
     else
         header('location:/vue/error.php?err=3');
 }
