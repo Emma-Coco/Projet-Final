@@ -31,13 +31,13 @@ class BookingManager {
             $query = "SELECT COUNT(*)
                       FROM booking 
                       WHERE id_logement = :logementId 
-                        AND NOT (ending_date < :end_date)
-                        AND (ending_date > :start_date)
-                        AND(starting_date>:start_date AND ending_date < :end_date)
-                        AND (starting_date<:end_date)
-                        AND NOT (starting_date > :end_date)
-                        AND (starting_date < :start_date AND ending_date > :end_date)
-                        AND (cancelled = 0)";
+                      AND (
+                        (starting_date <= :start_date AND ending_date >= :end_date) -- Cas 1: La réservation couvre complètement la plage sélectionnée
+                        OR (starting_date >= :start_date AND ending_date <= :end_date) -- Cas 2: La plage sélectionnée est entièrement incluse dans la réservation
+                        OR (starting_date <= :start_date AND ending_date >= :start_date) -- Cas 3: La réservation débute avant la plage sélectionnée
+                        OR (starting_date <= :end_date AND ending_date >= :end_date) -- Cas 4: La réservation se termine après la plage sélectionnée
+                        )
+                      AND cancelled = 0;";
             $stmt = $con->prepare($query);
             $stmt->bindParam(':logementId', $id_logement, PDO::PARAM_INT);
             $stmt->bindParam(':start_date', $start_date);

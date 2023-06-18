@@ -1,5 +1,5 @@
 <?php 
-include_once('../modele/Logistique.php');
+/*include_once('../modele/Logistique.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Vérifier si des données de mise à jour ont été soumises

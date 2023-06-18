@@ -11,7 +11,7 @@ $actionsEntretien = ActionEntretien::getAllElements();
   <thead>
     <tr>
       <th>Date</th>
-      <th>État</th>
+      <th>Actions d'entretien</th>
       <th>Description</th>
       <th></th>
       <th>Modifier l'état</th>
@@ -26,7 +26,7 @@ $actionsEntretien = ActionEntretien::getAllElements();
       <td><?php echo $action['created_at']; ?></td>
       <td><textarea name="action_entretien"><?php echo $action['etat_dentretien']; ?></textarea></td>
       <td><textarea name="description_actions"><?php echo $action['desciption']; ?></textarea></td>
-      <td><button type="submit">Mettre à jour l'état</button></td>
+      <td><button type="submit">Mettre à jour les actions</button></td>
       <td>
     </form>
     <form action="/controlleurs/update_action.php" method="POST">

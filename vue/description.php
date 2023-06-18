@@ -15,11 +15,11 @@
 <style type="text/css">
         .NonReserve {
           background-color:white !important;
-          color:blue !important;
+          color:white !important;
         }
         .Reserve {
           background-color:yellow !important;
-          color:red !important;
+          color:yellow !important;
         }
         .Modified {
           background-color:pink !important;
