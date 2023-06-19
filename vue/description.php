@@ -13,18 +13,8 @@
 <body>
 
 <style type="text/css">
-        .NonReserve {
-          background-color:white !important;
-          color:white !important;
-        }
-        .Reserve {
-          background-color:yellow !important;
-          color:yellow !important;
-        }
-        .Modified {
-          background-color:pink !important;
-          color:red !important;
-        }
+        
+       
       </style>
 
 
@@ -99,29 +89,80 @@
     </div>
     <hr class="line">
 
+    <?php
+    $reponseBooking = "";
+    if (isset($_POST['start_date']) && isset($_POST['end_date'])) {
+        $dateNow = new DateTime();
+        $dateNow->setTime(0, 0, 0); // Définit l'heure à 00:00:00
+        $startDate = getdate(strtotime($_POST['start_date']));
+        $endDate = getdate(strtotime($_POST['end_date']));
+        
+        if ($startDate[0] >= $dateNow->getTimestamp()) {
+            if ($endDate[0] < $startDate[0]) {
+                $reponseBooking = '<div style="color: #FF8675; font-size: 20px;">' . "La date de fin du séjour ne peut pas être inférieure à la date de début !" . '</div>';
+                
+            } else {
+                $isDatesAvailable = BookingManager::isDatesAvailable(date("Y-m-d", $startDate[0]), date("Y-m-d", $endDate[0]), $id_logement);
+                
+                if($isDatesAvailable){
+                    
+                    $reponseBooking = '<div style="font-weight: bold; font-size: 20px; display: inline-block">' . "La plage est libre. Souhaitez-vous confirmer cette réservation?" . '</div>';
+    
+    
+                    $reponseBooking .= '<div> <form action="/controlleurs/pub_controlleur.php?action=ConfirmBooking&id_logement='.$id_logement.'" method="post">';
+                    $reponseBooking .= '<input type="hidden" name="start_date" value="' . $_POST['start_date'] . '">';
+                    $reponseBooking .= '<input type="hidden" name="end_date" value="' . $_POST['end_date'] . '">';
+                    $reponseBooking .= '<input type="submit" name="confirm_booking" style="background-color: #B4DEB8; padding: 10px; border-radius: 10px; z-index: 30; display: inline-block" value="Confirmer">';
+                    
+    
+                    $reponseBooking .= '</form>';
 
-    <form class="check-form" action="../controlleurs/booking_controlleur.php" method="POST">
+                    $reponseBooking .= '<form action="/controlleurs/pub_controlleur.php?action=CancelBooking&id_logement='.$id_logement.'" method="post" style="display: inline-block"><input type="submit" name="cancel_booking" style="background-color: #FF8675; display: block; padding: 10px; border-radius: 10px; z-index: 30; display: inline-block" value="Annuler"></form>';
+
+                    $reponseBooking .= '</div>';
+                    $hideForm = true;
+                }
+                else{
+                  $reponseBooking = '<div style="color: #FF8675; font-size: 20px;">' . "Les dates sélectionnées sont déjà réservées." . '</div>';
+                }
+            }
+        } else {
+            $reponseBooking = '<div style="color: #FF8675; font-size: 20px;">' . "Vous ne pouvez pas définir une date dans le passé !" . '</div>';
+        }
+    }
+    ?>
+  <div style=>
+    <div class="check-form">
       <div class="error">
         <?php
-        if (isset($reponseBooking)) {
+        if ($reponseBooking!="") {
           echo $reponseBooking;
         }
+        if(!isset($hideForm)){
+
+        
         ?>
       </div>
-      <div class="start-date">
+      <form action="../controlleurs/pub_controlleur.php?action=CheckDispo&id_logement=<?=$id_logement?>" method="POST">
+      <div class="start-date" style="display: inline-block">
         <label for="start_date">Arrivée :</label>
         <input type="date" id="start_date" name="start_date" required><br><br>
       </div>
-      <div class="end-date">
+      <div class="end-date" style="display: inline-block">
         <label for="end_date">Départ :</label>
         <input type="date" id="end_date" name="end_date" required><br><br>
       </div>
       <!--Création du formulaire avec la date d'arrivée et de départ-->
-      <input class="validation" type="submit" value="Vérifier la disponibilité">
-      <div id="calendar"></div>
+      <input class="validation" type="submit" value="Vérifier la disponibilité" style="display: inline-block; vertical-align: top;">
       <!--<button type="submit">Check Availability</button>-->
-    </form>
-
+      </form>
+       <?php
+      }
+      ?>
+<div id="calendar" style="display: block"></div>
+    
+    </div>
+  </div>
     <h1>
       Ce que propose ce logement
     </h1>
@@ -171,37 +212,13 @@
     </div>
   </div>
 
-
-
-
-  <script src="/css/vanilla-calendar/vanilla-calendar.min.js"></script>
-
-  <?php
-  require_once '../modele/Booking.php';
-
-  $logementId = $_GET['logementId'];
-  $reservedDates = BookingManager::getReservedDates($logementId);
-
-  ?>
-
-
-
-
 <script src="../css/vanilla-calendar/vanilla-calendar.min.js"></script>
 
  <?php
 require_once '../modele/Booking.php';
 
 
-if(isset($_GET['logement_id'])){
-  $logementId = $_GET['logement_id'];
-  }
-  else{
-    $logementId = -1;
-  }
-
-
-$reservedDates = BookingManager::getReservedDates($logementId);
+$reservedDates = BookingManager::getReservedDates($id_logement);
 
 // Affichage des dates réservées
 $calendarDates ="";
@@ -221,6 +238,10 @@ foreach ($reservedDates as $reservation) {
           //ouvrir une balise php pour appeler la méthode statique de ma classe (avec les::)
         },*/
         settings: {
+          visibility: {
+          weekend: false,
+          today: false,
+          },
           selection: {
           day: 'multiple',
           },

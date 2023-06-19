@@ -57,17 +57,17 @@
       // Affichage de chaque message avec ses informations
       echo '<div class="message-container">';
       echo '<div class="message-info">';
-      echo 'ID: ' . $id . '<br>';
-      echo 'Booking ID: ' . $id_booking . '<br>';
-      echo 'User ID: ' . $user_id . '<br>';
-      echo 'Created At: ' . $created_at;
+      echo 'ID: ' . $message['id'] . '<br>';
+      echo 'Booking ID: ' . $message['id_booking'] . '<br>';
+      echo 'User ID: ' . $message['user_id'] . '<br>';
+      echo 'Created At: ' . $message['created_at'];
       echo '</div>';
       echo '<div class="message-text">';
-      echo $text;
+      echo $message['text'];
       echo '</div>';
       echo '<div class="reply-form">';
       echo '<form method="post" action="process_reply.php">';
-      echo '<input type="hidden" name="message_id" value="' . $id . '">';
+      echo '<input type="hidden" name="message_id" value="' . $message['id'] . '">';
       echo '<textarea name="reply_text" placeholder="Your reply"></textarea><br>';
       echo '<input type="submit" value="Reply">';
       echo '</form>';

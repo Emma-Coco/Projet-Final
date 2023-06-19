@@ -9,7 +9,7 @@ class ActionEntretien {
       $con = DBConnexion::getDBConnexion();
   
       // Requête SQL pour récupérer tous les éléments de la table
-      $query = "SELECT * FROM action_entretien";
+      $query = "SELECT ae.*, l.adress FROM action_entretien as ae LEFT JOIN logement AS l on l.id = ae.id_logement WHERE date_execution < NOW()";
       $stmt = $con->prepare($query);
       $stmt->execute();
   
@@ -26,9 +26,11 @@ class ActionEntretien {
         $idBooking = $element['id_booking'];
         $idLogement = $element['id_logement'];
         $entretienStatus = $element['entretien_status'];
-    }
-  
-    
+        $dateExecution = $element['date_execution'];
+        $adress = $element['adress'];
+
+    } 
+
   }
 
 }

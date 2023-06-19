@@ -15,6 +15,7 @@ $actionsEntretien = ActionEntretien::getAllElements();
       <th>Description</th>
       <th></th>
       <th>Modifier l'état</th>
+      <th>Adresse</th>
     </tr>
   </thead>
   <tbody>
@@ -23,7 +24,7 @@ $actionsEntretien = ActionEntretien::getAllElements();
     <form action="/controlleurs/update_action.php" method="POST">
      <input type="hidden" name="id" value="<?=$action['id']?>"/>
      <input type="hidden" name="action_id" value="rouge">
-      <td><?php echo $action['created_at']; ?></td>
+      <td><?php echo $action['date_execution']; ?></td>
       <td><textarea style="resize: none; height: 80px; width: 300px;" name="action_entretien"><?php echo $action['etat_dentretien']; ?></textarea></td>
       <td><textarea style="resize: none; height: 80px; width: 300px;" name="description_actions"><?php echo $action['desciption']; ?></textarea></td>
       <td><button type="submit">Mettre à jour les actions</button></td>
@@ -41,6 +42,7 @@ $actionsEntretien = ActionEntretien::getAllElements();
     </select>
     <button type="submit">Mettre à jour l'état</button>
     </form>
+    <td><?php echo $action['adress']; ?></td>
     </tr>
     <?php endforeach; ?>
   </tbody>
