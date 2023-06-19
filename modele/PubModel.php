@@ -105,15 +105,16 @@ class PubModel
 
     public static function isDate($dateString)
     {
-        $date = DateTime::createFromFormat('d/m/Y', $dateString);
-        return ($date && $date->format('d/m/Y') === $dateString);
+        $date = DateTime::createFromFormat('Y-m-d', $dateString);
+        return ($date && $date->format('Y-m-d') === $dateString);
     }
 
     public static function convertDateBDDFormat($dateString)
     {
-        $date = DateTime::createFromFormat('d/m/Y', $dateString);
+        /*$date = DateTime::createFromFormat('d/m/Y', $dateString);
         $formattedDate = $date->format('Y-m-d');
-        return $formattedDate; // Output: 2023-06-17
+        return $formattedDate;*/
+        return $dateString;
     }
 
     public static function logementIsAvailable($id_logement, $depart, $arrive)

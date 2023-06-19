@@ -60,6 +60,45 @@ class ClientModel
 
     }
 
+    public static function modifierReservation($id_reservation, $id_logement, $username, $depart, $arrive)
+    {
+        $con = DBConnexion::getDBConnexion();
+
+        if (!PubModel::isDate($depart) || !PubModel::isDate($arrive)) {
+
+            return false;
+        }
+
+        $id_user = self::getUserid($username);
+        if ($id_user == -1) {
+            return false;
+        }
+
+        if (self::etat_intervalle_date_html($depart, $arrive) != "future")
+            return false;
+
+        if (PubModel::logementIsAvailable($id_logement, $depart, $arrive) == true) {
+            $query = "update booking set starting_date=:depart, ending_date=:arrive where id=:id_reservation";
+            $stmt = $con->prepare($query);
+            $stmt->bindValue(':depart', $depart);
+            $stmt->bindValue(':arrive', $arrive);
+            $stmt->bindParam(':id_reservation', $id_reservation);
+            try {
+                $stmt->execute(); //execution
+            } catch (Exception $e) {
+                echo $e;
+                return false;
+            }
+            return true;
+
+        } else {
+            echo 'logement non dispo';
+            return false;
+        }
+
+
+    }
+
     public static function getListReservation($username) // On met page pour pouvoir passer le numero de page
     {
 
@@ -86,20 +125,37 @@ class ClientModel
             return NULL;
         } else {
             $reservations_groupees = [];
-            $dateCourante = date('Y-m-d');
             foreach ($reservations as $reservation) {
-                $etat = "courante";
-                if ($reservation['ending_date'] < $dateCourante)
-                    $etat = "passee";
-                if ($reservation['starting_date'] > $dateCourante)
-                    $etat = "future";
-                $reservation['etat'] = $etat;
+                $reservation['etat'] = self::etat_intervalle_date($reservation['starting_date'], $reservation['ending_date']);
                 $reservations_groupees[] = $reservation;
             }
             return $reservations_groupees;
         }
     }
 
+    public static function etat_intervalle_date($depart, $arrive)
+    {
+        $dateCourante = date('Y-m-d');
+        $etat = "courante";
+        if ($arrive < $dateCourante)
+            $etat = "passee";
+        if ($depart > $dateCourante)
+            $etat = "future";
+        return $etat;
+    }
+
+    public static function etat_intervalle_date_html($depart, $arrive)
+    {
+        $dateCourante = date('Y-m-d');
+        /*$depart = new DateTime($depart);
+        $arrive = new DateTime($arrive);*/
+        $etat = "courante";
+        if ($arrive < $dateCourante)
+            $etat = "passee";
+        if ($depart > $dateCourante)
+            $etat = "future";
+        return $etat;
+    }
 
     public static function reservation_authentique($id_reservation, $id_user)
     {
@@ -149,13 +205,7 @@ class ClientModel
 
         // ramener les urls de sa gallery d'image
         $detailsReservation['messages'] = self::getMessages($id_reservation);
-        $dateCourante = date('Y-m-d');
-        $etat = "courante";
-        if ($detailsReservation['ending_date'] < $dateCourante)
-            $etat = "passee";
-        if ($detailsReservation['starting_date'] > $dateCourante)
-            $etat = "future";
-        $detailsReservation['etat'] = $etat;
+        $detailsReservation['etat'] = self::etat_intervalle_date($detailsReservation['starting_date'], $detailsReservation['ending_date']);
         $detailsReservation['username'] = $username;
         return $detailsReservation;
     }
@@ -170,6 +220,22 @@ class ClientModel
         $stmt->execute();
     }
 
+    public static function ajouterMessageReservation($id_reservation, $message, $username)
+    {
+        $id_user = self::getUserid($username);
+        if ($id_user == -1) {
+            echo 'user introuvable';
+            die;
+        }
+        $con = DBConnexion::getDBConnexion();
+        $query = "insert into messages (text,id_booking,user_id) value (:message, :id_reservation, :id_user)";
+        $stmt = $con->prepare($query);
+        $stmt->bindParam(':message', $message);
+        $stmt->bindParam(':id_reservation', $id_reservation);
+        $stmt->bindParam(':id_user', $id_user);
+        $stmt->execute();
+    }
+
     public static function annulerReservation($id_reservation, $username)
     {
         $con = DBConnexion::getDBConnexion();
@@ -177,6 +243,49 @@ class ClientModel
         $stmt = $con->prepare($query);
         $stmt->bindParam(':id_reservation', $id_reservation);
         $stmt->execute();
+    }
+
+    public static function getCompte($username)
+    {
+        $id_user = self::getUserid($username);
+        if ($id_user == -1) {
+            echo 'user introuvable';
+            die;
+        }
+
+        $con = DBConnexion::getDBConnexion();
+        $query = "select * from users where id=:id_user";
+        $stmt = $con->prepare($query);
+        $stmt->bindParam(':id_user', $id_user);
+        $stmt->execute();
+        $compte = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (!$compte)
+            return NULL;
+        return $compte[0];
+    }
+
+    public static function modifierNomCompte($first_name, $last_name, $username)
+    {
+        $id_user = self::getUserid($username);
+        if ($id_user == -1) {
+            echo 'user introuvable';
+            die;
+        }
+
+        $con = DBConnexion::getDBConnexion();
+        $query = "update users set first_name=:first_name, last_name=:last_name where id=:id_user";
+        $stmt = $con->prepare($query);
+        $stmt->bindParam(':id_user', $id_user);
+        $stmt->bindParam(':first_name', $first_name);
+        $stmt->bindParam(':last_name', $last_name);
+
+        try {
+            $stmt->execute(); //execution
+        } catch (Exception $e) {
+            return false;
+        }
+        return true;
+
     }
 }
 ?>

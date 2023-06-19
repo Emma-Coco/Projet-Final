@@ -77,7 +77,7 @@ CREATE TABLE `booking` (
 );
 
 CREATE TABLE `messages` (
-  `id` integer PRIMARY KEY,
+  `id` integer PRIMARY KEY AUTO_INCREMENT,
   `text` varchar(255),
   `id_booking` integer NOT NULL,
   `user_id` integer NOT NULL,
