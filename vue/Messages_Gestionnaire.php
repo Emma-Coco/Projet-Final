@@ -42,35 +42,41 @@
     }
   </style>
 </head>
-<body>
+
+  <body>
   <h1>Messages</h1>
 
   <?php
-    require_once('/modele/Messages.php');
+    include_once('../modele/Messages.php');
 
     // Récupération de tous les messages depuis la base de données
     $messages = MessageRepository::getAllMessages();
 
-  ?>
+    foreach ($messages as $message){
 
-  <div class="message-container">
-    <div class="message-info">
-      ID: <?php echo $id; ?><br>
-      Booking ID: <?php echo $id_booking; ?><br>
-      User ID: <?php echo $user_id; ?><br>
-      Created At: <?php echo $created_at; ?>
-    </div>
-    <div class="message-text">
-      <?php echo $text; ?>
-    </div>
-    <div class="reply-form">
-      <form method="post" action="process_reply.php">
-        <input type="hidden" name="message_id" value="<?php echo $id; ?>">
-        <textarea name="reply_text" placeholder="Your reply"></textarea><br>
-        <input type="submit" value="Reply">
-      </form>
-    </div>
-  </div>
+      // Affichage de chaque message avec ses informations
+      echo '<div class="message-container">';
+      echo '<div class="message-info">';
+      echo 'ID: ' . $id . '<br>';
+      echo 'Booking ID: ' . $id_booking . '<br>';
+      echo 'User ID: ' . $user_id . '<br>';
+      echo 'Created At: ' . $created_at;
+      echo '</div>';
+      echo '<div class="message-text">';
+      echo $text;
+      echo '</div>';
+      echo '<div class="reply-form">';
+      echo '<form method="post" action="process_reply.php">';
+      echo '<input type="hidden" name="message_id" value="' . $id . '">';
+      echo '<textarea name="reply_text" placeholder="Your reply"></textarea><br>';
+      echo '<input type="submit" value="Reply">';
+      echo '</form>';
+      echo '</div>';
+      echo '</div>';
+    }
+  ?>
+</body>
+
 
 </body>
 </html>

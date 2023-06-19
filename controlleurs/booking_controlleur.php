@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once '../modele/Booking.php'; //inclure un fichier de code source dans un autre fichier.
-$logementId = $_GET["logement_id"];
 //header('location:/vue/description.php');
 
 if (isset($_REQUEST['action']))
@@ -11,8 +10,7 @@ else
 
     
     
-    $reponseBooking = "";
-
+$reponseBooking = "";
 if (isset($_POST['start_date']) && isset($_POST['end_date'])) {
     $dateNow = new DateTime();
     $dateNow->setTime(0, 0, 0); // Définit l'heure à 00:00:00
@@ -23,14 +21,14 @@ if (isset($_POST['start_date']) && isset($_POST['end_date'])) {
         if ($endDate < $startDate) {
             $reponseBooking = '<div style="position: absolute; top: 60px; color: #FF8675; font-size: 20px;">' . "La date de fin du séjour ne peut pas être inférieure à la date de début !" . '</div>';
         } else {
-            $isDatesAvailable = BookingManager::isDatesAvailable(date("Y-m-d", $startDate[0]), date("Y-m-d", $endDate[0]), $logementId);
+            $isDatesAvailable = BookingManager::isDatesAvailable(date("Y-m-d", $startDate[0]), date("Y-m-d", $endDate[0]), $id_logement);
             
             if($isDatesAvailable){
                 
                 $reponseBooking = '<div style="position: absolute; top: 60px; font-weight: bold; font-size: 20px;">' . "La plage est libre. Souhaitez-vous confirmer cette réservation?" . '</div>';
 
 
-                echo '<div> <form action="/controlleurs/booking_controlleur.php?logement_id='.$logementId.'" method="post">';
+                echo '<div> <form action="/controlleurs/booking_controlleur.php?id_logement='.$id_logement.'" method="post">';
                 echo '<input type="hidden" name="start_date" value="' . $_POST['start_date'] . '">';
                 echo '<input type="hidden" name="end_date" value="' . $_POST['end_date'] . '">';
                 echo '<input type="submit" name="confirm_booking" style="background-color: #B4DEB8; position: absolute; top: 1250px; left: 240px; padding: 10px; border-radius: 10px; z-index: 30;" value="Confirmer">';
@@ -58,9 +56,9 @@ if (isset($_POST['confirm_booking'])) {
     $stmt->bindParam(':starting_date', $startDate);
     $endDate = date("Y-m-d", $endDate[0]);
     $stmt->bindParam(':ending_date', $endDate);
-    $stmt->bindParam(':id_logement', $_GET['logement_id']);
+    $stmt->bindParam(':id_logement', $_GET['id_logement']);
     $stmt->execute();
-    $logement_id = $con->lastInsertId();
+    $id_logement = $con->lastInsertId();
     //redirection vers page temporaire 
     header('location:/vue/Validation_reservation.php?startDate=' . urlencode($startDate) . '&endDate=' . urlencode($endDate));
 } elseif (isset($_POST['cancel_booking'])) {
