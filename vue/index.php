@@ -31,24 +31,24 @@
         </div>
       </a>
       <form action="../controlleurs/pub_controlleur.php" method="post">
-      <input type="hidden" name="action" value="searchLogements" />
-      <div class="header__info">
-        <div>
-          <select name="destination" class="header__info--input" style="border: none;">
-            <option value="">Sélectionnez un arrondissement</option>
-            <?php
-            $allDestinations = PubModel::getAllDestinations();
-            foreach ($allDestinations as $destination) {
-              echo '<option value="' . $destination . '">' . $destination . '</option>';
-            }
-            ?>
-          </select>
+        <input type="hidden" name="action" value="searchLogements" />
+        <div class="header__info">
+          <div>
+            <select name="destination" class="header__info--input" style="border: none;">
+              <option value="">Sélectionnez un arrondissement</option>
+              <?php
+              $allDestinations = PubModel::getAllDestinations();
+              foreach ($allDestinations as $destination) {
+                echo '<option value="' . $destination . '">' . $destination . '</option>';
+              }
+              ?>
+            </select>
           </div>
           <div>
-            <input name="depart" class="header__info--input" placeholder="date depart (yyyy/mm/dd)" />
+            <input name="depart" class="header__info--input" placeholder="date depart (jj/mm/aaaa)" />
           </div>
           <div>
-            <input name="arrive" class="header__info--input" placeholder="date arrive (yyyy/mm/dd)" />
+            <input name="arrive" class="header__info--input" placeholder="date arrive (jj/mm/aaaa)" />
           </div>
           <div>
             <input name="places" class="header__info--input" placeholder="nombre de places" />
@@ -63,7 +63,7 @@
       </form>
       <?php
       if (isset($_SESSION['username']))
-        include 'Logon-Page/client_navbar.php';
+        include 'client/menu_berger.php';
       else {
         ?>
         <button id="openModalBtn">Identification</button>

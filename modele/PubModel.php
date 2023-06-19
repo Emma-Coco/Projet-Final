@@ -105,12 +105,21 @@ class PubModel
 
     public static function isDate($dateString)
     {
-        $date = DateTime::createFromFormat('Y-m-d', $dateString);
-        return ($date && $date->format('Y-m-d') === $dateString);
+        $date = DateTime::createFromFormat('d/m/Y', $dateString);
+        return ($date && $date->format('d/m/Y') === $dateString);
+    }
+
+    public static function convertDateBDDFormat($dateString)
+    {
+        $date = DateTime::createFromFormat('d/m/Y', $dateString);
+        $formattedDate = $date->format('Y-m-d');
+        return $formattedDate; // Output: 2023-06-17
     }
 
     public static function logementIsAvailable($id_logement, $depart, $arrive)
     {
+        $depart = self::convertDateBDDFormat($depart);
+        $arrive = self::convertDateBDDFormat($arrive);
         $con = DBConnexion::getDBConnexion();
         $query = "select * from booking where id_logement =:id_logement";
         $query = $query . " and cancelled!=1 and (( :depart between starting_date AND ending_date) OR ( :arrive between starting_date AND ending_date)) ";
@@ -262,7 +271,8 @@ class PubModel
     }
 
 
-    public static function getAllDestinations() {
+    public static function getAllDestinations()
+    {
         try {
             $con = DBConnexion::getDBConnexion();
             $query = "SELECT DISTINCT SUBSTRING_INDEX(adress, ' ', 1) AS arrondissement FROM logement";
@@ -270,7 +280,7 @@ class PubModel
             $stmt->execute();
             $addresses = $stmt->fetchAll(PDO::FETCH_COLUMN);
             $destinations = [];
-    
+
             foreach ($addresses as $address) {
                 // Extraction du nombre de l'arrondissement
                 $arrondissement = '';
@@ -280,13 +290,13 @@ class PubModel
                 }
                 $destinations[] = $arrondissement . 'è arrondissement';
             }
-    
+
             return $destinations;
         } catch (PDOException $e) {
             die('Erreur de connexion à la base de données : ' . $e->getMessage());
         }
     }
-    
+
 }
 
 
