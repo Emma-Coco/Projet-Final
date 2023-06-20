@@ -105,8 +105,15 @@ class PubModel
 
     public static function isDate($dateString)
     {
-        $date = DateTime::createFromFormat('Y-m-d', $dateString);
-        return ($date && $date->format('Y-m-d') === $dateString);
+        $date = DateTime::createFromFormat('d/m/Y', $dateString);
+        return ($date && $date->format('d/m/Y') === $dateString);
+    }
+
+    public static function convertDateBDDFormat($dateString)
+    {
+        $date = DateTime::createFromFormat('d/m/Y', $dateString);
+        $formattedDate = $date->format('Y-m-d');
+        return $formattedDate; // Output: 2023-06-17
     }
 
     public static function convertDateBDDFormat($dateString)

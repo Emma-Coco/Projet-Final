@@ -59,6 +59,8 @@ if ($action == 'detailsReservation') {
         include '../vue/client/reservation_future.php';
 }
 
+
+
 if ($action == 'ajouterAvisReservation') {
     $id_reservation = $_REQUEST['id_reservation'];
     $avis = $_REQUEST['avis'];
@@ -66,6 +68,7 @@ if ($action == 'ajouterAvisReservation') {
 
     header('location:http://localhost:8888/controlleurs/client_controlleur.php?action=listeReservations');
 }
+
 
 if ($action == 'ajouterMessageReservation') {
     $id_reservation = $_REQUEST['id_reservation'];
@@ -75,12 +78,14 @@ if ($action == 'ajouterMessageReservation') {
     header('location:http://localhost:8888/controlleurs/client_controlleur.php?action=detailsReservation&id_reservation=' . $id_reservation);
 }
 
+
 if ($action == 'annulerReservation') {
     $id_reservation = $_REQUEST['id_reservation'];
     $reservations = ClientModel::annulerReservation($id_reservation, $_SESSION['username']);
 
     header('location:http://localhost:8888/controlleurs/client_controlleur.php?action=listeReservations');
 }
+
 
 if ($action == 'modifierReservation') {
     $id_reservation = $_REQUEST['id_reservation'];
@@ -132,5 +137,7 @@ if ($action == 'historiqueMessageReservation') {
 
     include '../vue/client/messagerie.php';
 }
+
+
 
 ?>

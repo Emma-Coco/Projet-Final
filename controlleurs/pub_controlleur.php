@@ -49,12 +49,15 @@ if ($action == 'createAccount') {
 }
 
 if ($action == 'detailsLogement') {
+
     $id_logement = $_REQUEST['id_logement'];
     $logement = PubModel::getDetailsLogement($id_logement);
     if ($logement != NULL)
         include '../vue/description.php';
     else
         header('location:/vue/error.php?err=3');
+
+
 }
 
 if ($action == 'searchLogements') {
@@ -67,8 +70,31 @@ if ($action == 'searchLogements') {
     include '../vue/index.php';
 }
 
+require_once '../modele/Booking.php';
 
+if ($action == 'CheckDispo') {
+    $id_logement = $_REQUEST['id_logement'];
+    $logement = PubModel::getDetailsLogement($id_logement);
+    if ($logement != NULL)
+        include '../vue/description.php';
+    else
+        header('location:/vue/error.php?err=3');
+}
 
+if ($action == 'ConfirmBooking') {
+    $id_logement = $_REQUEST['id_logement'];
+    include '../vue/Validation_reservation.php';
+}
+
+if ($action == 'CancelBooking') {
+    $id_logement = $_REQUEST['id_logement'];
+    $logement = PubModel::getDetailsLogement($id_logement);
+    unset($_POST);
+    if ($logement != NULL)
+        include '../vue/description.php';
+    else
+        header('location:/vue/error.php?err=3');
+}
 
 
 ?>

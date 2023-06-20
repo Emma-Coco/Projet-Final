@@ -234,12 +234,13 @@ nav.navbar-white .fa-bars{
     margin: 20px 0 50px;
 }
 .check-form{
+    position: relative;
     margin: 30px 0;
     background: #fff;
     box-shadow: 0 0 30px rgba(0,0,0,0.3);
 
-    display: flex;
-    flex-wrap: wrap;
+    /*display: flex;
+    flex-wrap: wrap;*/
     align-items: center;
     padding: 10px 50px;
 }
@@ -249,6 +250,10 @@ nav.navbar-white .fa-bars{
 .check-form div{
     /*padding: 20px;
     width: 20%;*/
+}
+
+.check-form div.error div.libre{
+    background-color: #ff5361;
 }
 
 div .start-date{
