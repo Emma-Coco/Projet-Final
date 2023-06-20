@@ -30,6 +30,7 @@ class PubModel
             $roles = [];
             foreach ($result as $row) {
                 $roles[] = $row['title'];
+                $_SESSION['id_user'] = $row['id'];
             }
             return $roles;
         }
