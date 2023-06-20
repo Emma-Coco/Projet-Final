@@ -37,6 +37,10 @@
         <a href=" ../vue/CreateAnnouncement.php" class="register-btn">
           Publier un logement</a>
       </li>
+      <li>
+        <a href=" ../vue/actions_entretien.php" class="register-btn">
+          Logistique</a>
+      </li>
 
       <li>
         <a href="../controlleurs/pub_controlleur.php?action=logout" class="register-btn">
