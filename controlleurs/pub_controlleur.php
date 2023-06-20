@@ -49,15 +49,17 @@ if ($action == 'createAccount') {
 }
 
 if ($action == 'detailsLogement') {
-
-    $id_logement = $_REQUEST['id_logement'];
-    $logement = PubModel::getDetailsLogement($id_logement);
-    if ($logement != NULL)
-        include '../vue/description.php';
-    else
-        header('location:/vue/error.php?err=3');
-
-
+    if (isset($_SESSION['username'])) {
+        $id_logement = $_REQUEST['id_logement'];
+        $logement = PubModel::getDetailsLogement($id_logement);
+        if ($logement != NULL)
+            include '../vue/description.php';
+        else
+            header('location:/vue/error.php?err=3');
+    } else {
+        echo "Vous n'êtes pas autorisé à consulter cette page";
+        echo "<a href=\"/controlleurs/pub_controlleur.php?action=main\">Revenir à l'accueil</a>";
+    }
 }
 
 if ($action == 'searchLogements') {
