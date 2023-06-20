@@ -19,7 +19,27 @@ class ClientModel
             return $result[0]['id'];
         }
     }
+    public static function getFullname($id_user)
+    {
+        $con = DBConnexion::getDBConnexion();
+        $query = " select concat(first_name,' ',last_name) as fullname from users where id=:id_user";
+        $stmt = $con->prepare($query);
+        $stmt->bindParam(':id_user', $id_user);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (!$result) {
+            return "";
+        } else {
+            return $result[0]['fullname'];
+        }
+    }
 
+    public static function calculerDuree($depart, $arrive)
+    {
+        $datedepart = new DateTime($depart);
+        $datearrivee = new DateTime($arrive);
+        return ($datedepart->diff($datearrivee))->days + 1;
+    }
     public static function reserverLogement($id_logement, $username, $depart, $arrive)
     {
         $con = DBConnexion::getDBConnexion();
@@ -35,7 +55,8 @@ class ClientModel
         }
 
         $logement = PubModel::getDetailsLogement($id_logement);
-        $final_price = $logement['price'];
+        $nb_jours = self::calculerDuree($depart, $arrive);
+        $final_price = $logement['price'] * $nb_jours;
         if (PubModel::logementIsAvailable($id_logement, $depart, $arrive) == true) {
             $query = "insert into booking (starting_date,ending_date,id_logement,id_user,final_price,service_fee,taxes) ";
             $query = $query . " value (:depart, :arrive, :id_logement, :id_user, :final_price, 0, 0 ) ";
@@ -168,16 +189,29 @@ class ClientModel
         return $reservation[0]['id_user'] == $id_user;
     }
 
-    public static function getMessages($id_reservation)
+    public static function getMessages($id_reservation, $username)
     {
+        $id_user = self::getUserid($username);
+        if ($id_user == -1) {
+            echo 'user introuvable';
+            die;
+        }
+        if (self::reservation_authentique($id_reservation, $id_user) == false) {
+            return NULL;
+        }
         $con = DBConnexion::getDBConnexion();
-        $query = "select * from messages inner join users on users.id=messages.user_id where id_booking=:id_reservation";
+        $query = "select text, first_name, last_name, username, messages.id, id_booking, messages.created_at from messages inner join users on users.id=messages.user_id where id_booking=:id_reservation";
+        $guery = $query . ' order by timestamp';
         $stmt = $con->prepare($query);
         $stmt->bindParam(':id_reservation', $id_reservation);
         $stmt->execute();
         $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $messages;
+        if (!$messages)
+            return null;
+        else
+            return $messages;
     }
+
 
     public static function getDetailsReservation($id_reservation, $username) // recuperer les url des images de logements
     {
@@ -204,9 +238,10 @@ class ClientModel
         $detailsReservation = $reservations[0];
 
         // ramener les urls de sa gallery d'image
-        $detailsReservation['messages'] = self::getMessages($id_reservation);
+        $detailsReservation['messages'] = self::getMessages($id_reservation, $username);
         $detailsReservation['etat'] = self::etat_intervalle_date($detailsReservation['starting_date'], $detailsReservation['ending_date']);
         $detailsReservation['username'] = $username;
+        $detailsReservation['fullname'] = self::getFullname($id_user);
         return $detailsReservation;
     }
 
@@ -239,6 +274,11 @@ class ClientModel
     public static function annulerReservation($id_reservation, $username)
     {
         $con = DBConnexion::getDBConnexion();
+        $query = "delete from messages where id_booking=:id_reservation";
+        $stmt = $con->prepare($query);
+        $stmt->bindParam(':id_reservation', $id_reservation);
+        $stmt->execute();
+
         $query = "delete from booking where id=:id_reservation";
         $stmt = $con->prepare($query);
         $stmt->bindParam(':id_reservation', $id_reservation);
@@ -278,6 +318,30 @@ class ClientModel
         $stmt->bindParam(':id_user', $id_user);
         $stmt->bindParam(':first_name', $first_name);
         $stmt->bindParam(':last_name', $last_name);
+
+        try {
+            $stmt->execute(); //execution
+        } catch (Exception $e) {
+            return false;
+        }
+        return true;
+
+    }
+
+
+    public static function modifierEmailCompte($email, $username)
+    {
+        $id_user = self::getUserid($username);
+        if ($id_user == -1) {
+            echo 'user introuvable';
+            die;
+        }
+
+        $con = DBConnexion::getDBConnexion();
+        $query = "update users set mail=:email where id=:id_user";
+        $stmt = $con->prepare($query);
+        $stmt->bindParam(':id_user', $id_user);
+        $stmt->bindParam(':email', $email);
 
         try {
             $stmt->execute(); //execution

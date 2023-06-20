@@ -108,9 +108,8 @@
           </form>
     `;
     form_email = `<form action="../controlleurs/client_controlleur.php" method="post">
-      <input type = "hidden" name = "action" value = "modifierNomCompte" />     
-      <input class="edit-section-input" type="text" placeholder="Prénom" name="first_name">
-      <input class="edit-section-input" type="text" placeholder="Nom" name="last_name">
+      <input type = "hidden" name = "action" value = "modifierEmailCompte" />     
+      <input class="edit-section-input" type="text" placeholder="e-mail" name="email">
       <button type="submit" class="save-button">Enregistrer</button>
           </form>
     `;
@@ -128,7 +127,7 @@
           <p class="edit-section-description">${description}</p>
           <div class="input-container">
             ${title === "Nom légal" ? form_nom : ''}
-            ${title === "Adresse e-mail" ? '<input class="edit-section-input" type="text" placeholder="Email">' : ''}
+            ${title === "Adresse e-mail" ? form_email : ''}
             ${title === "Numéro de téléphone" ? '<input class="edit-section-input" type="text" placeholder="Saisir votre numéro">' : ''}
             ${title === "Mot de passe" ? '<input class="edit-section-input" type="password" placeholder="Entrer votre mot de passe">' : ''}
           </div>

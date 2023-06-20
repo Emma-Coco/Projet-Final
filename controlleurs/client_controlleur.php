@@ -114,8 +114,23 @@ if ($action == 'modifierNomCompte') {
 }
 
 
+if ($action == 'modifierEmailCompte') {
+    $email = $_REQUEST['email'];
+    $confirmation = ClientModel::modifierEmailCompte($email, $_SESSION['username']);
+    if ($confirmation == true) {
+        header('location:http://localhost:8888/controlleurs/client_controlleur.php?action=monCompte');
+    } else
+        header('location:/vue/error.php?err=7');
+}
 
 
+if ($action == 'historiqueMessageReservation') {
+    $id_reservation = $_REQUEST['id_reservation'];
+    $messages = ClientModel::getMessages($id_reservation, $_SESSION['username']);
+    if ($messages == NULL)
+        header('location:/vue/error.php?err=5');
 
+    include '../vue/client/messagerie.php';
+}
 
 ?>

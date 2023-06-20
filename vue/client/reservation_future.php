@@ -159,11 +159,12 @@
     ?>
     <p>Reservation à venir :</p>
     <h2>
-      <?php echo $detailReservation['name'] . ' : ' . $detailReservation['username']; ?>
+      <?php echo $detailReservation['name'] . ' : ' . $detailReservation['fullname']; ?>
     </h2>
     <p>
       Date de la réservation: <span class="reservation-date">
-        <?php echo $detailReservation['starting_date'] ?>
+        <?php echo $detailReservation['starting_date'] ?> -
+        <?php echo $detailReservation['ending_date'] ?>
       </span>
     </p>
     <p>Prix: <span class="reservation-price">
@@ -180,19 +181,8 @@
       <button type="submit" class="delete-button">Annuler la réservation</button>
     </form>
 
-    <form action="../controlleurs/client_controlleur.php" method="post">
-      <input type="hidden" name="action" value="ajouterMessageReservation" />
-      <input type="hidden" name="id_reservation" value="<?php echo $detailReservation['id']; ?>" />
-      <textarea class="message-field" placeholder="Écrivez votre message" name="message"></textarea>
-      <button class="send-button">Envoyer mon message</button>
-    </form>
-    <ul>
-      <?php
-      if ($detailReservation['messages'] != NULL)
-        foreach ($detailReservation['messages'] as $message)
-          echo "<li>" . $message['text'] . "</li>";
-      ?>
-    </ul>
+    <?php include '../vue/client/segment_messageries.php'; ?>
+
 
   </div>
 

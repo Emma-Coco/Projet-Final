@@ -63,28 +63,24 @@
 
 <body>
   <div class="reservation">
-    <h2>Villa Luxury : Tamer Hosni</h2>
+    <h2>
+      <?php echo $detailReservation['name'] . ' : ' . $detailReservation['fullname']; ?>
+    </h2>
     <p>
-      Date de réservation: <span class="reservation-date">17/06/2023</span>
+      Date de la réservation: <span class="reservation-date">
+        <?php echo $detailReservation['starting_date'] ?> -
+        <?php echo $detailReservation['ending_date'] ?>
+      </span>
     </p>
-    <p>Prix: <span class="reservation-price">500€</span></p>
+    <p>Prix: <span class="reservation-price">
+        <?php echo $detailReservation['final_price'] ?>€
+      </span></p>
 
     <p>Reservation en cours...</p>
 
     <p>Question sur ma réservation en cours :</p>
-    <form action="../controlleurs/client_controlleur.php" method="post">
-      <input type="hidden" name="action" value="ajouterMessageReservation" />
-      <input type="hidden" name="id_reservation" value="<?php echo $detailReservation['id']; ?>" />
-      <textarea class="message-field" placeholder="Écrivez votre message" name="message"></textarea>
-      <button class="send-button">Envoyer mon message</button>
-    </form>
-    <ul>
-      <?php
-      if ($detailReservation['messages'] != NULL)
-        foreach ($detailReservation['messages'] as $message)
-          echo "<li>" . $message['text'] . "</li>";
-      ?>
-    </ul>
+    <?php include '../vue/client/segment_messageries.php'; ?>
+
     <style>
       .send-button {
         display: block;
