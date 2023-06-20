@@ -127,8 +127,6 @@ if ($action == 'modifierEmailCompte') {
 if ($action == 'historiqueMessageReservation') {
     $id_reservation = $_REQUEST['id_reservation'];
     $messages = ClientModel::getMessages($id_reservation, $_SESSION['username']);
-    if ($messages == NULL)
-        header('location:/vue/error.php?err=5');
 
     include '../vue/client/messagerie.php';
 }
