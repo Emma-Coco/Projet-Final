@@ -58,8 +58,8 @@ if ($action == 'detailsLogement') {
         else
             header('location:/vue/error.php?err=3');
     } else {
-        echo "Vous n'êtes pas autorisé à consulter cette page" ;
-        echo "<a href=\"/controlleurs/pub_controlleur.php?action=main\">Revenir à l'accueil</a>";
+        echo "Vous n'êtes pas autorisé à consulter cette page <br/><br/>" ;
+        echo "<a href=\"/vue/register.html\">Créer un compte</a>";
     }
 }
 
