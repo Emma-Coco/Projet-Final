@@ -226,8 +226,14 @@ class PubModel
         // ramener les services offerts par le logement
         $logement['services'] = self::getLogementServices($id_logement);
 
+
+        //Infos de latitude et longitude pour la map
+        $logement['latitude'] = $logement['position_lat'];
+        $logement['longitude'] = $logement['position_long'];
+
         return $logement;
     }
+    
 
 
     // function qui ramene les services d'un logement specifique (selon le id du logement passe en parametre) 
