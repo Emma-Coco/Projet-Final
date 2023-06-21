@@ -82,11 +82,18 @@
 
 <body>
   <div class="reservation">
-    <h2>CHATEAU ISMAIL</h2>
+    <h2>
+      <?php echo $detailReservation['name'] . ' : ' . $detailReservation['fullname']; ?>
+    </h2>
     <p>
-      réservation faite le : <span class="reservation-date">17/06/2023</span>
+      Date de la réservation: <span class="reservation-date">
+        <?php echo $detailReservation['starting_date'] ?> -
+        <?php echo $detailReservation['ending_date'] ?>
+      </span>
     </p>
-    <p>Prix: <span class="reservation-price">350€</span></p>
+    <p>Prix: <span class="reservation-price">
+        <?php echo $detailReservation['final_price'] ?>€
+      </span></p>
     <p>
       Ajouter un avis sur votre reservation :
       <span class="reservation-rating">
@@ -110,7 +117,7 @@
     <form action="../controlleurs/client_controlleur.php" method="post">
       <input type="hidden" name="action" value="ajouterAvisReservation" />
       <input type="hidden" name="id_reservation" value="<?php echo $detailReservation['id']; ?>" />
-      <textarea class="message-field" placeholder="Votre message" name="avis"></textarea>
+      <textarea class="message-field" placeholder="Votre avis" name="avis"></textarea>
       <button class="send-button">Envoyer</button>
     </form>
   </div>

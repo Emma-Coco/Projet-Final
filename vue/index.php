@@ -45,10 +45,10 @@
             </select>
           </div>
           <div>
-            <input name="depart" class="header__info--input" placeholder="date depart (jj/mm/aaaa)" />
+            <input type="date" name="depart" class="header__info--input" placeholder="date depart (jj/mm/aaaa)" />
           </div>
           <div>
-            <input name="arrive" class="header__info--input" placeholder="date arrive (jj/mm/aaaa)" />
+            <input type="date" name="arrive" class="header__info--input" placeholder="date arrive (jj/mm/aaaa)" />
           </div>
           <div>
             <input name="places" class="header__info--input" placeholder="nombre de places" />
@@ -140,7 +140,7 @@
           ?>
           <a href="../controlleurs/pub_controlleur.php?action=detailsLogement&id_logement=<?php echo $logement['id']; ?>">
             <article class="card__item">
-              <img class="card__item--image" src="/vue/Images/Appartements_images/<?php echo $logement['url'] ?>"
+              <img class="card__item--image" src="/vue/Images/Appartements_images/<?php if(file_exists('../vue/Images/Appartements_images/'.$logement['url'])){echo $logement['url'];} else{echo 'defaut.png';}?>"
                 alt="Photo appartement" c />
               <h3 class="card__description--name">
                 <?php echo $logement['name']; ?>

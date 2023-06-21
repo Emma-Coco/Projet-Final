@@ -21,6 +21,7 @@ class PubModel
         $stmt->bindParam(':username', $username);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+       
 
         if (!$result) {
             return NULL;
@@ -30,6 +31,7 @@ class PubModel
             $roles = [];
             foreach ($result as $row) {
                 $roles[] = $row['title'];
+                $_SESSION['id_user'] = $row['user_id'];
             }
             return $roles;
         }
@@ -77,10 +79,10 @@ class PubModel
         $lim = 1000;
         $ofst = $page * $lim; //c'est pour pouvoir choisir un partie des logements souhaitez d'une partie specifique selectionneer une partie de la reponse
         $con = DBConnexion::getDBConnexion();
-        $query = "select logement.id, name, description, price, type from logement inner join type_logement on logement.id_type_logement=type_logement.id  order by logement.id limit 12 offset $ofst"; //Pour limiter le resultat sinon il ramene tous les logements de labbd
+        $query = "select logement.id, name, description, price, type from logement inner join type_logement on logement.id_type_logement=type_logement.id  order by logement.id limit $lim offset $ofst"; //Pour limiter le resultat sinon il ramene tous les logements de labbd
         $stmt = $con->prepare($query); // preparation
-        //$stmt->bindParam(':lim',$lim);  //parametre
-        //$stmt->bindParam(':ofst',$ofst); // parametre
+        //$stmt->bindParam(':lim', $lim); //parametre
+        //$stmt->bindParam(':ofst', $ofst); // parametre
 
         try {
             $stmt->execute(); //execution
@@ -105,15 +107,16 @@ class PubModel
 
     public static function isDate($dateString)
     {
-        $date = DateTime::createFromFormat('d/m/Y', $dateString);
-        return ($date && $date->format('d/m/Y') === $dateString);
+        $date = DateTime::createFromFormat('Y-m-d', $dateString);
+        return ($date && $date->format('Y-m-d') === $dateString);
     }
 
     public static function convertDateBDDFormat($dateString)
     {
-        $date = DateTime::createFromFormat('d/m/Y', $dateString);
+        /*$date = DateTime::createFromFormat('d/m/Y', $dateString);
         $formattedDate = $date->format('Y-m-d');
-        return $formattedDate; // Output: 2023-06-17
+        return $formattedDate;*/
+        return $dateString;
     }
 
     public static function logementIsAvailable($id_logement, $depart, $arrive)

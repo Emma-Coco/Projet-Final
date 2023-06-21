@@ -1,18 +1,25 @@
 <?php
 
-require_once '../modele/Booking.php'; 
+
+require_once '../modele/Booking.php';
+require_once '../modele/ClientModel.php';
 
 $startDate = $_POST['start_date'];
 $endDate = $_POST['end_date'];
+$finalPrice = ClientModel::calculerDuree($startDate, $endDate) * $_POST['prix'];
 // Vérifier si le formulaire de confirmation ou d'annulation a été soumis
 if (isset($_POST['confirm_booking'])) {
-    $con=DBConnexion::getDBConnexion();
-    $query = "INSERT INTO booking (starting_date, ending_date, id_logement) ";
-    $query .= "VALUES (:starting_date, :ending_date, :id_logement)";
+    $con = DBConnexion::getDBConnexion();
+    $query = "INSERT INTO booking (starting_date, ending_date, id_logement,final_price, service_fee,taxes,id_user) ";
+    $query .= "VALUES (:starting_date, :ending_date, :id_logement,:final_price,0,0,:id_user)";
     $stmt = $con->prepare($query);
     $stmt->bindParam(':starting_date', $startDate);
     $stmt->bindParam(':ending_date', $endDate);
     $stmt->bindParam(':id_logement', $_GET['id_logement']);
+    $stmt->bindParam(':final_price', $finalPrice);
+    $stmt->bindParam(':id_user', $_SESSION['id_user']);
+
+
     $stmt->execute();
     $id_booking = $con->lastInsertId();
 

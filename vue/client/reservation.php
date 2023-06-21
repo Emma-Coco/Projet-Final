@@ -80,7 +80,35 @@
 
 
 
-    <button class="message-button">Message</button>
+    <p>Question sur la reservation :</p>
+    <textarea class="message-field" placeholder="Écrivez votre message"></textarea>
+    <style>
+      .message-field {
+        display: block;
+        width: 94%;
+        padding: 10px;
+        margin-top: 10px;
+        font-size: 16px;
+        border-radius: 3px;
+        resize: none;
+      }
+
+      .send-button {
+        display: block;
+        width: 50%;
+        padding: 10px;
+        margin-top: 10px;
+        font-size: 16px;
+        text-align: center;
+        background-color: #434848b2;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+
+      }
+    </style>
+    <button class="send-button">Envoyer mon message</button>
     <button class="edit-button">Modifier la reservation </button>
 
     <form action="../controlleurs/client_controlleur.php" method="post">

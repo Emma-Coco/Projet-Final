@@ -49,17 +49,16 @@ if ($action == 'createAccount') {
 }
 
 if ($action == 'detailsLogement') {
-    if(isset($_SESSION['username'])){
+    if (isset($_SESSION['username'])) {
         $id_logement = $_REQUEST['id_logement'];
         $logement = PubModel::getDetailsLogement($id_logement);
         if ($logement != NULL)
             include '../vue/description.php';
-        
         else
             header('location:/vue/error.php?err=3');
     } else {
-        echo "Vous n'êtes pas autorisé à consulter cette page <br/><br/>" ;
-        echo "<a href=\"/vue/register.html\">Créer un compte</a>";
+        echo "Vous n'êtes pas autorisé à consulter cette page";
+        echo "<a href=\"/controlleurs/pub_controlleur.php?action=main\">Revenir à l'accueil</a>";
     }
 }
 
@@ -73,7 +72,7 @@ if ($action == 'searchLogements') {
     include '../vue/index.php';
 }
 
-require_once '../modele/Booking.php'; 
+require_once '../modele/Booking.php';
 
 if ($action == 'CheckDispo') {
     $id_logement = $_REQUEST['id_logement'];
@@ -86,7 +85,7 @@ if ($action == 'CheckDispo') {
 
 if ($action == 'ConfirmBooking') {
     $id_logement = $_REQUEST['id_logement'];
-        include '../vue/Validation_reservation.php';
+    include '../vue/Validation_reservation.php';
 }
 
 if ($action == 'CancelBooking') {

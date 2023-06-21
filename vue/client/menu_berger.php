@@ -26,16 +26,20 @@
       <li>Favoris</li>
       <li>
         <a href="../vue/client/assistancehtml.php">
-          Assistance </a>
+          Messagerie </a>
         <ul class="submenu">
           <li>Contacter l'assistance clientèle</li>
           <li>Consulter la foire aux questions</li>
         </ul>
       </li>
-      <li><a href="../vue/client/informations-persohtml.php">Mon compte</li>
+      <li><a href="../controlleurs/client_controlleur.php?action=monCompte">Mon compte</li>
       <li>
-        <a href="../vue/CreateAnnouncement.php" class="register-btn">
+        <a href=" ../vue/CreateAnnouncement.php" class="register-btn">
           Publier un logement</a>
+      </li>
+      <li>
+        <a href=" ../vue/actions_entretien.php" class="register-btn">
+          Logistique</a>
       </li>
 
       <li>
