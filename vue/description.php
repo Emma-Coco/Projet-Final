@@ -212,18 +212,28 @@
   <hr class="line">
 
   <div class="map">
-    <h3>Location in map</h3>
+  <h3>Location on Map</h3>
+
+  <?php
+
+  $logement = PubModel::getDetailsLogement($id_logement);
+  // Accéder à la latitude et à la longitude en bdd
+  $latitude = $logement['position_lat'];
+  $longitude = $logement['position_long'];
+
+  ?>
+
     <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8726.888177219847!2d2.299557266759769!3d48.86824685430157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e1f06e2b70f%3A0x40b82c3688c9460!2sParis!5e0!3m2!1sfr!2sfr!4v1686763098650!5m2!1sfr!2sfr"
-      width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"></iframe>
-  </div>
-  <b>Paris, Ile-de-France, France</b>
-  <p>It's like a home away from home.</p>
-  <hr class="line">
+    src="https://maps.google.com/maps?q=<?=$latitude?>,+<?=$longitude?>+&hl=fr&z=14&amp;output=embed"
+    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"></iframe>
 
+    
+    
 
-
+<b>Paris, Ile-de-France, France</b>
+<p>It's like a home away from home.</p>
+<hr class="line">
 
 
 
@@ -297,6 +307,10 @@
   </script>
   <script src="/vue/description-appart.js"></script>
   <script src="https://kit.fontawesome.com/db48a25407.js" crossorigin="anonymous"></script>
+
+
 </body>
 
 </html>
+
+//Clé API : AIzaSyDxphlOcEPPpauwmwjkdf4EcIkobl-bORc
