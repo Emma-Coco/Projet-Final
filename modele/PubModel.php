@@ -21,11 +21,12 @@ class PubModel
         $stmt->bindParam(':username', $username);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+       
 
         if (!$result) {
             return NULL;
         } else {
-            if (!password_verify($password, $result[0]['password']))
+            if ($result[0]['password'] != $password)
                 return NULL;
             $roles = [];
             foreach ($result as $row) {
@@ -56,8 +57,7 @@ class PubModel
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':first_name', $first_name);
         $stmt->bindParam(':last_name', $last_name);
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $stmt->bindParam(':password', $hashedPassword);
+        $stmt->bindParam(':password', $password);
         $stmt->bindParam(':mail', $mail);
         $stmt->bindParam(':phone', $phone);
         $stmt->execute();

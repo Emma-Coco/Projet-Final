@@ -23,7 +23,7 @@ $stmt->bindParam(':kitchen', $_REQUEST["cuisine"]);
 $stmt->bindParam(':bathroom_number', $_REQUEST["sallesDeBain"]);
 $stmt->bindParam(':created_at', $_REQUEST["dateCreation"]);
 $stmt->execute();
-$logement_id = $con->lastInsertId();
+$id_logement = $con->lastInsertId();
 
 //ajout des services
 
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $query = "INSERT INTO service_logement (id_service, id_logement, created_at) VALUES (:id_service, :id_logement, :created_at)";
         $stmt = $con->prepare($query);
         $stmt->bindParam(':id_service', $service_id);
-        $stmt->bindParam(':id_logement', $logement_id);
+        $stmt->bindParam(':id_logement', $id_logement);
         $stmt->bindParam(':created_at', $created_at);
 
         if ($stmt->execute()) {
@@ -57,16 +57,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Connexion réussie
 
         // Vérifier si le répertoire existe
-        if (is_dir($directory)) {
-            $images = getImagesFromDirectory($directory);
+        //if (is_dir($directory)) {
+            //$images = getImagesFromDirectory($directory);
 
             // Insérer les URL des images dans la table "picture" avec l'ID du logement
-            foreach ($images as $image) {
+            //foreach ($images as $image) {
                 $sql = "INSERT INTO picture (url, id_logement) VALUES (:url, :id_logement)";
                 $stmt = $con->prepare($sql);
-                $stmt->bindParam(':url', $image);
+                $stmt->bindParam(':url', $directory);
                 $stmt->bindParam(':id_logement', $id_logement);
-                if ($stmt->execute()) {
+                $stmt->execute();
+                /*if ($stmt->execute()) {
                     echo "URL insérée avec succès : " . $image . "<br>";
                 } else {
                     echo "Erreur lors de l'insertion de l'URL : " . $stmt->error . "<br>";
@@ -74,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
         } else {
             echo "Répertoire invalide.";
-        }
+        }*/
     } else {
         die("Échec de la connexion à la base de données.");
     }
