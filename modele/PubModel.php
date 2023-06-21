@@ -227,9 +227,14 @@ class PubModel
         $logement['services'] = self::getLogementServices($id_logement);
 
 
+        // ramene les avis sur le logement sous forme de dictionnaire [username]=avis
+        $logement['avis'] = self::getLogementAvis($id_logement);
+
+
         //Infos de latitude et longitude pour la map
         $logement['latitude'] = $logement['position_lat'];
         $logement['longitude'] = $logement['position_long'];
+
 
         return $logement;
     }
@@ -303,6 +308,26 @@ class PubModel
             return $destinations;
         } catch (PDOException $e) {
             die('Erreur de connexion à la base de données : ' . $e->getMessage());
+        }
+    }
+
+    public static function getLogementAvis($id_logement)
+    {
+        $con = DBConnexion::getDBConnexion();
+        $query = "select avis_client, username from booking inner join users on users.id=booking.id_user where id_logement=:id_logement";
+        $stmt = $con->prepare($query);
+        $stmt->bindParam(':id_logement', $id_logement);
+        $stmt->execute();
+        $avis = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!$avis) {
+            return NULL;
+        } else {
+            $avis_dic = [];
+            foreach ($avis as $avi) {
+                $avis_dic[$avi['username']] = $avi['avis_client'];
+            }
+            return $avis_dic;
         }
     }
 

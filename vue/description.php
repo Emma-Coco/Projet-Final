@@ -11,6 +11,18 @@
   <link rel="stylesheet" href="/css/vanilla-calendar/themes/light.min.css">
   <script src="https://kit.fontawesome.com/c4254e24a8.js" crossorigin="anonymous"></script>
 </head>
+<style>
+  .user_icon {
+    width: 30px;
+    height: auto;
+    margin: 5px;
+  }
+
+  .avis_container {
+    display: flex;
+    align-items: center;
+  }
+</style>
 
 <body>
 
@@ -184,7 +196,18 @@
 
 
   <p class="home-desc">
-    <?php echo $logement['description']; ?>
+  <ul>
+    <li>Commentaires sur la reservation :</li>
+
+    <?php
+    if ($logement['avis'] == NULL)
+      echo "pas d'avis sur ce logement";
+    else foreach ($logement['avis'] as $username => $avis) {
+        echo '<li class="avis_container"><img src="/vue/Images/user.png" class="user_icon"/>' . $username . ' : ' . $avis . '</li>';
+      }
+
+    ?>
+  </ul>
   </p>
   <hr class="line">
 
@@ -238,7 +261,8 @@
   $reservedDates = BookingManager::getReservedDates($id_logement);
 
   // Affichage des dates réservées
-  $calendarDates = ""; foreach ($reservedDates as $reservation) {
+  $calendarDates = "";
+  foreach ($reservedDates as $reservation) {
     $calendarDates .= "'" . $reservation['starting_date'] . ":" . $reservation['ending_date'] . "',";
   }
   ?>
