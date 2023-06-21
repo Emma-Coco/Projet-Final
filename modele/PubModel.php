@@ -25,12 +25,12 @@ class PubModel
         if (!$result) {
             return NULL;
         } else {
-            if ($result[0]['password'] != $password)
+            if (!password_verify($password, $result[0]['password']))
                 return NULL;
             $roles = [];
             foreach ($result as $row) {
                 $roles[] = $row['title'];
-                $_SESSION['id_user'] = $row['id'];
+                $_SESSION['id_user'] = $row['user_id'];
             }
             return $roles;
         }
@@ -56,7 +56,8 @@ class PubModel
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':first_name', $first_name);
         $stmt->bindParam(':last_name', $last_name);
-        $stmt->bindParam(':password', $password);
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $stmt->bindParam(':password', $hashedPassword);
         $stmt->bindParam(':mail', $mail);
         $stmt->bindParam(':phone', $phone);
         $stmt->execute();

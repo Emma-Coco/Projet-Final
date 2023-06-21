@@ -274,6 +274,12 @@ class ClientModel
     public static function annulerReservation($id_reservation, $username)
     {
         $con = DBConnexion::getDBConnexion();
+
+        $query = "delete from action_entretien where id_booking=:id_reservation";
+        $stmt = $con->prepare($query);
+        $stmt->bindParam(':id_reservation', $id_reservation);
+        $stmt->execute();
+
         $query = "delete from messages where id_booking=:id_reservation";
         $stmt = $con->prepare($query);
         $stmt->bindParam(':id_reservation', $id_reservation);
