@@ -33,15 +33,24 @@
         </ul>
       </li>
       <li><a href="../controlleurs/client_controlleur.php?action=monCompte">Mon compte</li>
-      <li>
-        <a href=" ../vue/CreateAnnouncement.php" class="register-btn">
-          Publier un logement</a>
-      </li>
-      <li>
-        <a href=" ../vue/actions_entretien.php" class="register-btn">
-          Logistique</a>
-      </li>
 
+      <?php
+      if (in_array('gestion', $_SESSION['roles'])) {
+        ?>
+
+        <li>
+          <a href=" ../vue/CreateAnnouncement.php" class="register-btn">
+            Publier un logement</a>
+        </li>
+      <?php
+      }
+      if (in_array('gestion', $_SESSION['roles']) || in_array('logistique', $_SESSION['roles'])) {
+        ?>
+        <li>
+          <a href=" ../vue/actions_entretien.php" class="register-btn">
+            Logistique</a>
+        </li>
+      <?php } ?>
       <li>
         <a href="../controlleurs/pub_controlleur.php?action=logout" class="register-btn">
           Déconnexion</a>
