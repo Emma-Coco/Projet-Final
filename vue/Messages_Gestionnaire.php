@@ -44,7 +44,7 @@
 </head>
 
   <body>
-  <h1>Messages</h1>
+  <h1>Messages gestionnaire</h1>
 
   <?php
     include_once('../modele/Messages.php');
@@ -57,16 +57,17 @@
       // Affichage de chaque message avec ses informations
       echo '<div class="message-container">';
       echo '<div class="message-info">';
-      echo 'ID: ' . $message['id'] . '<br>';
-      echo 'Booking ID: ' . $message['id_booking'] . '<br>';
-      echo 'User ID: ' . $message['user_id'] . '<br>';
-      echo 'Created At: ' . $message['created_at'];
+      //echo 'ID: ' . $message['id'] . '<br>';
+      echo 'Logement :' . $message['name'] . '<br>';
+      echo 'Réservation en date du ' . $message['starting_date'].' au '.$message['ending_date'] . '<br>';
+      echo 'Nom: ' . $message['first_name'].' '.$message['last_name'] . '<br>';
+      echo 'Envoyé le ' . date('d/m/Y', strtotime($message['created_at'])) . ' à ' . date('H:i', strtotime($message['created_at']));
       echo '</div>';
       echo '<div class="message-text">';
       echo $message['text'];
       echo '</div>';
       echo '<div class="reply-form">';
-      echo '<form method="post" action="process_reply.php">';
+      echo '<form method="post" action="../modele/Messages.php">';
       echo '<input type="hidden" name="message_id" value="' . $message['id'] . '">';
       echo '<textarea name="reply_text" placeholder="Your reply"></textarea><br>';
       echo '<input type="submit" value="Reply">';

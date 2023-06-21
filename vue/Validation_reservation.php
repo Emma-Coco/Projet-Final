@@ -30,7 +30,7 @@ if (isset($_POST['confirm_booking'])) {
     $stmt = $con->prepare($query);
 
     $value = 1;
-    $menage = "menage";
+    $menage = "Actions d'entretien habituelles";
     $toDO = "À faire";
 
     $stmt->bindParam(':entretien_user_id', $value);
