@@ -78,12 +78,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Fermeture de la connexion à la base de données
         $con = null;
 
-       /* // Redirection vers la page
+        // Redirection vers la page
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit();
     } catch (PDOException $e) {
         echo "Erreur : " . $e->getMessage();
-    } */
     }
 }
 ?>
