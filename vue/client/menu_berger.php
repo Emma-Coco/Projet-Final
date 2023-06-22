@@ -148,6 +148,10 @@
         </li>
       <?php } ?>
       <li>
+          <a href=" ../vue/CreateAnnouncement.php" class="register-btn">
+            Gestion des comptes</a>
+        </li>
+      <li>
         <a href="../controlleurs/pub_controlleur.php?action=logout" class="register-btn">
           Déconnexion</a>
       </li>
