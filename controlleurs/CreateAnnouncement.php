@@ -7,8 +7,8 @@ echo '<pre>';
 var_dump($_REQUEST);
 echo '</pre>';
 
-$query = "INSERT INTO logement (name, description, position_lat, position_long, adress, number_of_travelers, price, id_type_logement, bedroom_number, kitchen, bathroom_number, created_at) ";
-$query .= "VALUES (:name, :description, :position_lat, :position_long, :adress, :number_of_travelers, :price, :id_type_logement, :bedroom_number, :kitchen, :bathroom_number, :created_at)";
+$query = "INSERT INTO logement (name, description, position_lat, position_long, adress, number_of_travelers, price, id_type_logement, bedroom_number, kitchen, bathroom_number) ";
+$query .= "VALUES (:name, :description, :position_lat, :position_long, :adress, :number_of_travelers, :price, :id_type_logement, :bedroom_number, :kitchen, :bathroom_number)";
 $stmt = $con->prepare($query);
 $stmt->bindParam(':name', $_REQUEST["nom"]);
 $stmt->bindParam(':description', $_REQUEST["description"]);
@@ -21,7 +21,6 @@ $stmt->bindParam(':id_type_logement', $_REQUEST["typeLogement"]);
 $stmt->bindParam(':bedroom_number', $_REQUEST["chambres"]);
 $stmt->bindParam(':kitchen', $_REQUEST["cuisine"]);
 $stmt->bindParam(':bathroom_number', $_REQUEST["sallesDeBain"]);
-$stmt->bindParam(':created_at', $_REQUEST["dateCreation"]);
 $stmt->execute();
 $logement_id = $con->lastInsertId();
 
@@ -31,15 +30,19 @@ $con = DBConnexion::getDBConnexion();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $services = $_POST["services"];
-    $created_at = $_POST["created_at"];
+    
 
     foreach ($services as $service_id) {
-        $query = "INSERT INTO service_logement (id_service, id_logement, created_at) VALUES (:id_service, :id_logement, :created_at)";
+        $query = "INSERT INTO service_logement (id_service, id_logement) VALUES (:id_service, :id_logement)";
         $stmt = $con->prepare($query);
         $stmt->bindParam(':id_service', $service_id);
+<<<<<<< Updated upstream
         $stmt->bindParam(':id_logement', $logement_id);
         $stmt->bindParam(':created_at', $created_at);
 
+=======
+        $stmt->bindParam(':id_logement', $id_logement);
+>>>>>>> Stashed changes
         if ($stmt->execute()) {
             echo "Service ajouté avec succès : Service ID = " . $service_id . "<br>";
         } else {
