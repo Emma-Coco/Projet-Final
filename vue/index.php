@@ -708,7 +708,7 @@
   <div class="container">
     <div class="video__container">
       <video id="loop__vid" controls="none" autoplay muted>
-        <source src="/vue/loopvideo.webm" type="video/webm">
+        <source src="/vue/loopvideo.mp4" type="video/mp4">
       </video>
 
     </div>

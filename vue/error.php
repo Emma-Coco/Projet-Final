@@ -45,14 +45,14 @@
   <div class="error">
     <?php
     $error_msg = []; /// Centralisation des messages d'erreur
-    $error_msg[0] = "Some thing wrong happened";
+    $error_msg[0] = "Oops! Une erreur est survenue";
     $error_msg[1] = "Nom d'utilisateur ou Mot de passe incorrect";
-    $error_msg[2] = "Error creating user account (try enother user name may help)";
-    $error_msg[3] = "Error reading details of logement";
-    $error_msg[4] = "Access to this pages is denied";
-    $error_msg[5] = "no such reservation";
-    $error_msg[6] = "failed to fetch your account data";
-    $error_msg[7] = "failed to change your account data";
+    $error_msg[2] = "Une erreur est survenue (essayez un autre nom d'utilisateur)";
+    $error_msg[3] = "On a une erreur au niveau de l'affiochage des données";
+    $error_msg[4] = "Vous ne pouvez pas etre la";
+    $error_msg[5] = "Aucune réservation de ce type";
+    $error_msg[6] = "Impossible de récupérer les données de votre compte";
+    $error_msg[7] = "Nous n'avons pas réussi à modifier les données de votre compte";
     if (isset($_REQUEST['err']))
       $error_code = $_REQUEST['err'];
     else
