@@ -538,10 +538,10 @@
     margin-bottom: 0;
     overflow: hidden;
     cursor: pointer;
-
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12);
-
     transition: all 0.2s ease-in-out;
+    min-height: 600px;
+    max-height: 600px;
   }
 
   .card__item:hover {
@@ -551,21 +551,25 @@
 
   .card__item--image {
     width: 100%;
-    min-height: 500px;
-    max-height: 420px;
+    min-height: 400px;
+    max-height: 400px;
     object-fit: cover;
   }
 
   .card__description {
     padding: 8px 16px;
+    min-height: 40px;
+    max-height: 40px;
+    overflow-wrap: break-word;
+    overflow: hidden;
   }
 
   .card__description--type {
     width: max-content;
     margin-bottom: 12px;
-
-    border: 1px solid black;
+    background: black;
     padding: 8px 16px;
+    color: white;
   }
 
   .card__description--name {
