@@ -5,7 +5,7 @@
   <title>Error</title>
 </head>
 <style>
-  body{
+  body {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -16,7 +16,7 @@
     font-family: 'Roboto', sans-serif;
   }
 
-  .error{
+  .error {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -26,18 +26,22 @@
     margin: 40vh;
     padding: 10px;
   }
-  
-  a{
+
+  a {
     text-decoration: none;
     color: #d9d9d9;
   }
 
-  :hover.error{
+  :hover.error {
     cursor: pointer;
     color: #d9d9d9;
   }
 </style>
+
 <body>
+  <?php
+  include '../vue/header_menu.php';
+  ?>
   <div class="error">
     <?php
     $error_msg = []; /// Centralisation des messages d'erreur
@@ -56,7 +60,7 @@
     echo "<h2> $error_msg[$error_code] </h2> <a href='/controlleurs/pub_controlleur.php'>Retournez a la page de connexion</a>";
     ?>
   </div>
-  
+
 </body>
 
 </html>

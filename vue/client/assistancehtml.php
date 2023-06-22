@@ -72,6 +72,9 @@
 </head>
 
 <body>
+  <?php
+  include '../vue/header_menu.php';
+  ?>
   <div id="bloc1">
     <h1>Assistance</h1>
   </div>

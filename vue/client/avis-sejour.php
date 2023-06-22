@@ -81,6 +81,9 @@
 </head>
 
 <body>
+  <?php
+  include '../vue/header_menu.php';
+  ?>
   <div class="reservation">
     <h2>
       <?php echo $detailReservation['name'] . ' : ' . $detailReservation['fullname']; ?>

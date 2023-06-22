@@ -145,6 +145,9 @@
 </head>
 
 <body>
+  <?php
+  // include '../vue/header_menu.php';
+  ?>
   <div class="container">
     <h1>Informations personnelles</h1>
 
