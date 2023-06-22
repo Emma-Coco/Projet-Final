@@ -36,13 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $query = "INSERT INTO service_logement (id_service, id_logement) VALUES (:id_service, :id_logement)";
         $stmt = $con->prepare($query);
         $stmt->bindParam(':id_service', $service_id);
-<<<<<<< Updated upstream
         $stmt->bindParam(':id_logement', $logement_id);
-        $stmt->bindParam(':created_at', $created_at);
 
-=======
-        $stmt->bindParam(':id_logement', $id_logement);
->>>>>>> Stashed changes
         if ($stmt->execute()) {
             echo "Service ajouté avec succès : Service ID = " . $service_id . "<br>";
         } else {
