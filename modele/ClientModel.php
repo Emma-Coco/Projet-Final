@@ -245,13 +245,14 @@ class ClientModel
         return $detailsReservation;
     }
 
-    public static function ajouterAvisReservation($id_reservation, $avis, $username)
+    public static function ajouterAvisReservation($id_reservation, $avis, $stars, $username)
     {
         $con = DBConnexion::getDBConnexion();
-        $query = "update booking set avis_client=:avis where id=:id_reservation";
+        $query = "update booking set avis_client=:avis, stars=:stars where id=:id_reservation";
         $stmt = $con->prepare($query);
         $stmt->bindParam(':id_reservation', $id_reservation);
         $stmt->bindParam(':avis', $avis);
+        $stmt->bindParam(':stars', $stars);
         $stmt->execute();
     }
 

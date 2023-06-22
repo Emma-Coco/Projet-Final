@@ -6,7 +6,6 @@
   <style>
     html,
     body {
-      height: 100%;
       margin: 0;
       display: flex;
       justify-content: center;
@@ -29,7 +28,7 @@
 
     h2 {
       color: #333;
-      margin-top: 0;
+      margin-top: 20px;
     }
 
     p {
@@ -49,9 +48,7 @@
 
 
 <body>
-  <?php
-  include '../vue/header_menu.php';
-  ?>
+
   <div>
     <section>
       <h2>Réservations passées</h2>

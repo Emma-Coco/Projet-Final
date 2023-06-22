@@ -82,7 +82,7 @@
 
 <body>
   <?php
-  include '../vue/header_menu.php';
+  // include '../vue/header_menu.php';
   ?>
   <div class="reservation">
     <h2>
@@ -120,6 +120,7 @@
     <form action="../controlleurs/client_controlleur.php" method="post">
       <input type="hidden" name="action" value="ajouterAvisReservation" />
       <input type="hidden" name="id_reservation" value="<?php echo $detailReservation['id']; ?>" />
+      <input type="hidden" name="stars" value="0" id="input_stars">
       <textarea class="message-field" placeholder="Votre avis" name="avis"></textarea>
       <button class="send-button">Envoyer</button>
     </form>
@@ -129,6 +130,7 @@
     const starContainers = document.querySelectorAll(".star-container");
     let selectedStarsCount = 0;
     let lastSelectedStarIndex = -1;
+    let input_stars = document.getElementById("input_stars");
 
     function handleStarClick(event) {
       const clickedStarContainer = event.currentTarget;
@@ -154,6 +156,7 @@
         selectedStarsCount--;
         lastSelectedStarIndex--;
       }
+      input_stars.value = currentIndex + 1;
     }
 
     function resetStars() {

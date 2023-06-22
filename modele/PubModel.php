@@ -5,11 +5,11 @@ class PubModel
 {
 
 
-    public static function getPrimaryLogement()
-    {
-        $con = DBConnexion::getDBConnexion();
+    // public static function getPrimaryLogement()
+    // {
+    // $con = DBConnexion::getDBConnexion();
 
-    }
+    // }
 
 
     public static function getRoles($username, $password)
@@ -228,7 +228,7 @@ class PubModel
         // ramener les services offerts par le logement
         $logement['services'] = self::getLogementServices($id_logement);
 
-        // ramene les avis sur le logement sous forme de dictionnaire [username]=avis
+        // ramene les avis sur le logement sous forme de dictionnaire [username]=[stars,avis]
         $logement['avis'] = self::getLogementAvis($id_logement);
 
         return $logement;
@@ -308,7 +308,7 @@ class PubModel
     public static function getLogementAvis($id_logement)
     {
         $con = DBConnexion::getDBConnexion();
-        $query = "select avis_client, username from booking inner join users on users.id=booking.id_user where id_logement=:id_logement";
+        $query = "select avis_client, stars, username from booking inner join users on users.id=booking.id_user where id_logement=:id_logement";
         $stmt = $con->prepare($query);
         $stmt->bindParam(':id_logement', $id_logement);
         $stmt->execute();
@@ -319,7 +319,7 @@ class PubModel
         } else {
             $avis_dic = [];
             foreach ($avis as $avi) {
-                $avis_dic[$avi['username']] = $avi['avis_client'];
+                $avis_dic[$avi['username']] = ['stars' => $avi['stars'], 'texte' => $avi['avis_client']];
             }
             return $avis_dic;
         }

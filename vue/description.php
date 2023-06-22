@@ -203,7 +203,15 @@
     if ($logement['avis'] == NULL)
       echo "pas d'avis sur ce logement";
     else foreach ($logement['avis'] as $username => $avis) {
-        echo '<li class="avis_container"><img src="/vue/Images/user.png" class="user_icon"/>' . $username . ' : ' . $avis . '</li>';
+        echo '<li class="avis_container"><img src="/vue/Images/user.png" class="user_icon"/>' . $username;
+        $nb_stars = $avis['stars'];
+        for ($i = 1; $i <= 5; $i++) {
+          if ($i <= $nb_stars)
+            echo '<img style="width:20px;height:auto" src="../vue/Images/full_star.png">';
+          else
+            echo '<img style="width:20px;height:auto" src="../vue/Images/empty_star.png">';
+        }
+        echo ' : ' . $avis['texte'] . '</li>';
       }
 
     ?>
