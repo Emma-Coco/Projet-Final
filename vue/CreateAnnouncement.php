@@ -82,37 +82,8 @@ include_once('../modele/TypeLogements.php');
         <br>
 
 
-<<<<<<< Updated upstream
         <input type="submit" value="Envoyer"><br><br>
     </form>
-=======
-                <!--ajout des services-->
-
-                <h2>Ajouter des services au logement</h2>
-
-                <h3>Services disponibles :</h3>
-
-                <?php
-
-                typeLogement::GetAllService();
-
-                ?><br>
-
-
-
-                <h2>Ajouter des images</h2>
-
-
-                <!--choid de l'image principale-->
-                <label for="directory">Image principale:</label>
-                <input type="text" id="directory" name="directory" placeholder="Nom_du_dossier/url_image" required>
-                <br>
-
-
-                <input type="submit" value="Envoyer"><br><br>
-
-                </form>
->>>>>>> Stashed changes
 </body>
 </html>
 
