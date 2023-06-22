@@ -51,3 +51,33 @@ echo 'Votre réservation en date du ' . $startDate . ' jusqu\'au ' . $endDate . 
 ?>
 
 <a href="/controlleurs/pub_controlleur.php?action=main">Retour à l'accueil</a>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+
+<style>
+    body {
+        background-color: black;
+        color: white;
+        text-align: center;
+        margin: 0 auto;
+        font-family: 'Roboto', sans-serif;
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 70vh;
+    }
+
+    body a {
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+</style>

@@ -64,6 +64,9 @@
 </head>
 
 <body>
+  <?php
+  include '../vue/header_menu.php';
+  ?>
   <div class="message-block">
     <h1>HISTORIQUE DE MESSAGES</h1>
     <div class="conversation">

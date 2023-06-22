@@ -2,22 +2,37 @@
 <html>
 
 <head>
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" href="/vue/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
   <title>Informations personnelles</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
+      display: flex;
+      font-family: 'Roboto', sans-serif;
+      margin: 0 auto;
+      background-color: #1B1B1B;
+      color: white;
+      text-decoration: none;
     }
 
     h1 {
-      text-align: center;
+      margin: 0 auto;
       margin-bottom: 30px;
+      text-transform: uppercase;
+      text-align: center;
     }
 
     .container {
-      width: 80%;
+      flex-direction: column;
+      display: flex;
       margin: 0 auto;
+      padding: 0 auto;
+      
     }
 
     .section {
@@ -26,21 +41,24 @@
       padding-bottom: 20px;
       max-width: 400px;
       position: relative;
+      
     }
 
     .label {
       font-weight: bold;
       margin-bottom: 10px;
       display: flex;
-      align-items: center;
+      align-items: stretch;
       justify-content: space-between;
     }
 
     .edit-link,
     .add-link {
-      color: blue;
-      text-decoration: underline;
+      color: white;
+      text-decoration: none;
       white-space: nowrap;
+      border: 1px solid white;
+      padding: 10px;
     }
 
     .add-link::after {
@@ -49,7 +67,7 @@
 
     .add-link:hover,
     .edit-link:hover {
-      color: blue;
+      color: #333;
     }
 
     .button {
@@ -67,23 +85,25 @@
     }
 
     .edit-section {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
+      position: fixed;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.8);
+      width: 100vw;
       display: flex;
       align-items: center;
       justify-content: center;
+      color: black;
+      margin: 0 auto;
+      padding: 0;
     }
 
     .edit-section-content {
-      background-color: #fff;
+      background-color: #1B1B1B;
       padding: 20px;
-      border-radius: 4px;
       max-width: 400px;
       text-align: center;
+      color: white;
+      text-decoration: none;
     }
 
     .edit-section-title {
@@ -93,11 +113,50 @@
 
     .edit-section-description {
       margin-bottom: 20px;
+
     }
 
     .edit-section-input {
       margin-bottom: 10px;
+      padding: 10px;
     }
+
+    .info-section{
+      margin: 0 auto;
+      padding: 0 auto;
+    }
+
+    .ferme__moi {
+      display: flex;
+      margin:  0 auto;
+      justify-content: center;
+    }
+
+    .cancel-button {
+      color: white;
+      text-decoration: underline;
+      white-space: nowrap;
+      padding: 10px;
+    }
+
+    :hover.cancel-button {
+      text-decoration: none;
+    }
+
+    .save-button {
+      background-color: black;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    :hover.save-button {
+      background-color: white;
+      color: black;
+    }
+    
+    
   </style>
   <script>
     form_nom = `<form action="../controlleurs/client_controlleur.php" method="post">
@@ -145,9 +204,29 @@
 </head>
 
 <body>
-  <div class="container">
+  <?php
+  // include '../vue/header_menu.php';
+  ?>
+  <div style="
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  margin: 0 auto;
+  padding: 0 auto;
+  flex-direction: column;
+  ">
+  <div class="ferme__moi">
     <h1>Informations personnelles</h1>
-
+  </div>
+  
+  <div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <div class="section" id="info-section">
       <div class="label">
         <span class="info">Nom légal:</span>
@@ -181,13 +260,15 @@
 
     <div class="section">
       <div class="label">
-        <span class="info">Mot de passe:</span>
+        <span style="padding:10px;" class="info">Mot de passe:</span>
         <a href="#" class="edit-link"
           onclick="showEditSection('Mot de passe', 'Vous pouvez modifier votre mot de passe.')">Modifier le mot de
           passe</a>
       </div>
     </div>
   </div>
+  </div>
+  
 </body>
 
 </html>

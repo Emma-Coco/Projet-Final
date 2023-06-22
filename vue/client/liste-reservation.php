@@ -49,6 +49,9 @@
 
 
 <body>
+  <?php
+  include '../vue/header_menu.php';
+  ?>
   <div>
     <section>
       <h2>Réservations passées</h2>
