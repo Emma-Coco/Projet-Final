@@ -13,7 +13,7 @@
   cursor: pointer;
   padding: 24px;
   text-transform: uppercase;
-  font-weight: bold;
+  font-weight: 400;
   display: flex;
   gap: 20px;
   align-items: center;

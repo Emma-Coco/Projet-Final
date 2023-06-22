@@ -50,7 +50,7 @@
 
 <body>
   <?php
-  //include '../vue/header_menu.php';
+  include '../vue/header_menu.php';
   ?>
   <div>
     <section>

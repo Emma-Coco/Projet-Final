@@ -87,7 +87,7 @@
 </head>
 
 <body>
-  <?php
+<?php
   include '../vue/header_menu.php';
   ?>
   <div id="bloc1">
