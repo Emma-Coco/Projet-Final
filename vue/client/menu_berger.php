@@ -122,7 +122,7 @@
       <li>Favoris</li>
       <li>
         <a href="../vue/client/assistancehtml.php">
-          Messagerie </a>
+          assistance </a>
         <ul class="submenu">
           <li>Contacter l'assistance clientèle</li>
           <li>Consulter la foire aux questions</li>

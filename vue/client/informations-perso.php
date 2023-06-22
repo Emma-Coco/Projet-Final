@@ -2,12 +2,23 @@
 <html>
 
 <head>
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" href="/vue/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
   <title>Informations personnelles</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 0;
+      display: flex;
+      font-family: 'Roboto', sans-serif;
+      margin: 0 auto;
       padding: 20px;
+      background-color: #1B1B1B;
+      color: white;
+      text-decoration: none;
     }
 
     h1 {
@@ -16,7 +27,6 @@
     }
 
     .container {
-      width: 80%;
       margin: 0 auto;
     }
 
@@ -76,6 +86,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      color: black;
     }
 
     .edit-section-content {
@@ -150,7 +161,12 @@
   ?>
   <div class="container">
     <h1>Informations personnelles</h1>
-
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <div class="section" id="info-section">
       <div class="label">
         <span class="info">Nom légal:</span>
