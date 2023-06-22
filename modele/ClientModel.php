@@ -200,7 +200,10 @@ class ClientModel
             return NULL;
         }
         $con = DBConnexion::getDBConnexion();
-        $query = "select text, first_name, last_name, username, messages.id, id_booking, messages.created_at from messages inner join users on users.id=messages.user_id where id_booking=:id_reservation";
+        $query = "select text, first_name, last_name, username, messages.id, id_booking, messages.created_at 
+        from messages 
+        inner join users on users.id=messages.user_id 
+        where id_booking=:id_reservation AND response_of_idMessage IS NULL";
         $guery = $query . ' order by timestamp';
         $stmt = $con->prepare($query);
         $stmt->bindParam(':id_reservation', $id_reservation);

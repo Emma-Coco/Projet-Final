@@ -13,12 +13,12 @@ include_once('../modele/TypeLogements.php');
 </head>
 
 <body>
-    
+
     <h1>Ajouter un logement<h1>
 
             <h2>Description du logement</h2>
 
-            <form enctype="multipart/form-data" action="../controlleurs/CreateAnnouncement.php" method="POST">
+            <form action="../controlleurs/CreateAnnouncement.php" method="POST">
                 <label for="nom">Nom :</label>
                 <input type="text" id="nom" name="nom" required placeholder="Entrez le nom"><br><br>
 
@@ -61,7 +61,6 @@ include_once('../modele/TypeLogements.php');
                 <input type="number" id="sallesDeBain" name="sallesDeBain" required
                     placeholder="Entrez le nombre de salles de bain"><br><br>
 
-
                 <!--ajout des services-->
 
                 <h2>Ajouter des services au logement</h2>
@@ -75,27 +74,16 @@ include_once('../modele/TypeLogements.php');
                 ?><br>
 
 
-
                 <h2>Ajouter des images</h2>
-                
-                <label for="folder">Nom du dossier :</label>
-                <input type="text" name="folder" id="folder" required>
-                <br>
 
-                <label for="images">Sélectionner un dossier d'images :</label>
-                <input type="file" id="images" name="images" directory="" webkitdirectory="" mozdirectory="" required>
-                <br>
-
-
-                <!--choid de l'image principale-->
-                <label for="directory">Image principale:</label>
-                <input type="text" id="directory" name="directory" placeholder="Nom_du_dossier/url_image" required>
+                <!--formulaire de récupération des url images-->
+                <label for="directory">Image principale :</label>
+                <input type="text" id="directory" name="directory" placeholder="Nom_Du_Dossier/url.jpg" required>
                 <br>
 
 
                 <input type="submit" value="Envoyer"><br><br>
-
-                </form>
+            </form>
 </body>
 
 </html>

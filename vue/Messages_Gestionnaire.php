@@ -45,9 +45,7 @@
 </head>
 
 <body>
-  <?php
-  include '../vue/header_menu.php';
-  ?>
+  
   <h1>Messages gestionnaire</h1>
 
   <?php
@@ -57,6 +55,7 @@
   $messages = MessageRepository::getAllMessages();
 
   foreach ($messages as $message) {
+
 
     // Affichage de chaque message avec ses informations
     echo '<div class="message-container">';
@@ -70,9 +69,13 @@
     echo '<div class="message-text">';
     echo $message['text'];
     echo '</div>';
+    foreach(MessageRepository::getAllResponse($message['id_message']) AS $response){
+      echo '<div>'.$response['text'].'</div>';
+    }
     echo '<div class="reply-form">';
     echo '<form method="post" action="../modele/Messages.php">';
-    echo '<input type="hidden" name="message_id" value="' . $message['id'] . '">';
+    echo '<input type="hidden" name="message_id" value="' . $message['id_message'] . '">';
+    echo '<input type="hidden" name="id_booking" value="' . $message['id_booking'] . '">';
     echo '<textarea name="reply_text" placeholder="Your reply"></textarea><br>';
     echo '<input type="submit" value="Reply">';
     echo '</form>';

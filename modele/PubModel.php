@@ -16,7 +16,7 @@ class PubModel
     {
         $con = DBConnexion::getDBConnexion();
         $query = " select * from users inner join users_role on users.id=users_role.user_id ";
-        $query = $query . "inner join role on users_role.role_id=role.id where username = :username";
+        $query = $query . "inner join role on users_role.role_id=role.id where username = :username AND users.deleted=0";
         $stmt = $con->prepare($query);
         $stmt->bindParam(':username', $username);
         $stmt->execute();
@@ -25,13 +25,14 @@ class PubModel
         if (!$result) {
             return NULL;
         } else {
-            if (!password_verify($password, $result[0]['password']))
+            if ($password != $result[0]['password'])
                 return NULL;
             $roles = [];
             foreach ($result as $row) {
                 $roles[] = $row['title'];
                 $_SESSION['id_user'] = $row['user_id'];
             }
+            $_SESSION['roles']=$roles;
             return $roles;
         }
     }
