@@ -13,14 +13,12 @@ include_once('../modele/TypeLogements.php');
 </head>
 
 <body>
-    <?php
-    include '../vue/header_menu.php';
-    ?>
+    
     <h1>Ajouter un logement<h1>
 
             <h2>Description du logement</h2>
 
-            <form action="../controlleurs/CreateAnnouncement.php" method="POST">
+            <form enctype="multipart/form-data" action="../controlleurs/CreateAnnouncement.php" method="POST">
                 <label for="nom">Nom :</label>
                 <input type="text" id="nom" name="nom" required placeholder="Entrez le nom"><br><br>
 
@@ -63,8 +61,6 @@ include_once('../modele/TypeLogements.php');
                 <input type="number" id="sallesDeBain" name="sallesDeBain" required
                     placeholder="Entrez le nombre de salles de bain"><br><br>
 
-                <label for="dateCreation">Créé à :</label>
-                <input type="date" id="dateCreation" name="dateCreation" required><br><br>
 
                 <!--ajout des services-->
 
@@ -78,21 +74,28 @@ include_once('../modele/TypeLogements.php');
 
                 ?><br>
 
-                <label for="created_at">Date de création :</label>
-                <input type="date" id="created_at" name="created_at" required><br><br>
-
 
 
                 <h2>Ajouter des images</h2>
+                
+                <label for="folder">Nom du dossier :</label>
+                <input type="text" name="folder" id="folder" required>
+                <br>
 
-                <!--formulaire de récupération des url images-->
-                <label for="directory">Répertoire :</label>
-                <input type="text" id="directory" name="directory" placeholder="Chemin du répertoire" required>
+                <label for="images">Sélectionner un dossier d'images :</label>
+                <input type="file" id="images" name="images" directory="" webkitdirectory="" mozdirectory="" required>
+                <br>
+
+
+                <!--choid de l'image principale-->
+                <label for="directory">Image principale:</label>
+                <input type="text" id="directory" name="directory" placeholder="Nom_du_dossier/url_image" required>
                 <br>
 
 
                 <input type="submit" value="Envoyer"><br><br>
-            </form>
+
+                </form>
 </body>
 
 </html>
