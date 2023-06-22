@@ -662,12 +662,12 @@
         </div>
         <div style="border-right: 1px solid black">
           <input style="display:none" type="Date">
-          <input type="text" name="depart" class="header__info--input" placeholder="Date de départ"
+          <input type="text" name="depart" class="header__info--input" placeholder="Date de début"
             onfocus="(this.type='Date')" onblur="if(!this.value) this.type='text'" />
         </div>
         <div style="border-right: 1px solid black">
           <input style="display:none" type="Date">
-          <input type="text" name="arrive" class="header__info--input" placeholder="Date d'arrivée"
+          <input type="text" name="arrive" class="header__info--input" placeholder="Date de fin"
             onfocus="(this.type='Date')" onblur="if(!this.value) this.type='text'" />
         </div>
         <div>

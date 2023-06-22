@@ -48,10 +48,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
-// Récupérer les images, de manière récursive, incluses dans chaque sous-dossier
+// Charger un dossier d'images, et sélectionner l'image principale
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $directory = $_POST["directory"];
+
+    
 
     if ($con) {
         // Connexion réussie
@@ -62,6 +64,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             // Insérer les URL des images dans la table "picture" avec l'ID du logement
             //foreach ($images as $image) {
+                $directory = $_POST['directory'];
+                $targetDirectory = '../vue/Images/Appartements_images/';
+
+                if (!empty($_FILES['images']['name'])) {
+                    $targetPath = $targetDirectory . basename($_FILES['images']['name']);
+                    if (move_uploaded_file($_FILES['images']['tmp_name'], $targetPath)) {
+                        // Téléchargement réussi, vous pouvez effectuer d'autres traitements si nécessaire
+                        echo "Le dossier d'images a été téléchargé et stocké avec succès.";
+                    } else {
+                        echo "Une erreur s'est produite lors du téléchargement du dossier d'images.";
+                    }
+                }
+
                 $sql = "INSERT INTO picture (url, id_logement) VALUES (:url, :id_logement)";
                 $stmt = $con->prepare($sql);
                 $stmt->bindParam(':url', $directory);
