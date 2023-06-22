@@ -22,17 +22,36 @@
         $accounts = CategoryGestionnaire::getAllAccount();
         ?>
 
-        <?php foreach ($accounts as $account): ?>
+        <?php foreach ($accounts as $account){ ?>
         <tr>
             <td><?php echo $account['id']; ?></td>
             <td><?php echo $account['username']; ?></td>
             <td><?php echo $account['first_name']; ?></td>
             <td><?php echo $account['last_name']; ?></td>
             <td><?php echo $account['mail']; ?></td>
-            <td><?php echo $account['role_id']; ?></td>
-            <td><a href="Admin_controlleur.php?action=deleteCompte&id=<?=$account['id']?>">Supprimer</a></td>
+            <form action="Admin_controlleur.php?action=updateRoles&user_id=<?=$account['id']?>" method="post">
+            <td>
+            <?php
+                foreach (CategoryGestionnaire::GetRoles() as $role){
+                    if (CategoryGestionnaire::getUserRoles($account['id'], $role["id"]) ){
+                    echo '<input type="checkbox" name="role'.$role["id"].'" id="role'.$account["id"].$role["id"].'" value="'.$role["id"].'" checked="yes"> <label for="role'.$account["id"].$role["id"].'">'.$role["title"] . "</label> ";
+                    } else {
+                    echo '<input type="checkbox" name="role'.$role["id"].'" id="role'.$account["id"].$role["id"].'" value="'.$role["id"].'"> <label for="role'.$account["id"].$role["id"].'">'.$role["title"] . "</label> ";
+                    }
+                }
+            ?>    
+            </td>
+            <td><input type="submit" value="Mettre à jour"></td>
+            </form>
+            <td>
+                <?php if($account['deleted']==0){?>
+                <a href="Admin_controlleur.php?action=deleteCompte&id=<?=$account['id']?>">Supprimer</a>
+                <?php } else{ ?>
+                <a href="Admin_controlleur.php?action=restoreCompte&id=<?=$account['id']?>">Restaurer</a>
+                <?php } ?>
+            </td>
         </tr>
-        <?php endforeach; ?>
+        <?php } ?>
     </table>
 </body>
 </html>

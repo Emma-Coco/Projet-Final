@@ -13,5 +13,17 @@ CategoryGestionnaire::deleteCompte($_GET['id']);
 include_once('../vue/AfficherLesComptes.php');
 }
 
+if(isset($_GET['action']) && $_GET['action']=='restoreCompte'){
+    include_once('../modele/Admin.php');  
+    CategoryGestionnaire::restoreCompte($_GET['id']);
+    include_once('../vue/AfficherLesComptes.php');
+    }
+
+if(isset($_GET['action']) && $_GET['action']=='updateRoles'){
+    include_once('../modele/Admin.php');  
+    CategoryGestionnaire::updateRoles($_POST, $_GET['user_id']);
+    include_once('../vue/AfficherLesComptes.php');
+    }
+
 ?>
 

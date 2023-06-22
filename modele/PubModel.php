@@ -32,6 +32,7 @@ class PubModel
                 $roles[] = $row['title'];
                 $_SESSION['id_user'] = $row['user_id'];
             }
+            $_SESSION['roles']=$roles;
             return $roles;
         }
     }
