@@ -8,9 +8,10 @@ class CategoryGestionnaire {
 
         try {
             $con = DBConnexion::getDBConnexion();
-            $query = "SELECT u.id, u.username, u.first_name, u.last_name, u.mail, r.id
+            $query = "SELECT u.id, u.username, u.first_name, u.last_name, u.mail, ur.role_id
                       FROM users u
-                      LEFT JOIN role r ON u.id = r.id";
+                      LEFT JOIN users_role ur ON u.id = ur.user_id
+                      WHERE u.deleted=0";
             
             $stmt = $con->prepare($query);
             $stmt->execute();
@@ -25,6 +26,21 @@ class CategoryGestionnaire {
             die('Erreur de connexion à la base de données : ' . $e->getMessage());
         }
     }
+
+    public static function deleteCompte($id) {
+
+        try {
+            $con = DBConnexion::getDBConnexion();
+            $query = "UPDATE users SET deleted=1 WHERE id=:id";
+            $stmt = $con->prepare($query);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            
+        } catch (PDOException $e) {
+            die('Erreur de connexion à la base de données : ' . $e->getMessage());
+        }
+    }
+
 }
 
 ?>

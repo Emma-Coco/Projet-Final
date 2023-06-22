@@ -1,18 +1,17 @@
 <?php 
+if(!isset($_GET['action']) || $_GET['action']=='AfficherLesComptes'){
 include_once('../modele/Admin.php');
 // Récupérer tous les éléments d'entretien
 $accounts = CategoryGestionnaire::getAllAccount();
+include_once('../vue/AfficherLesComptes.php');
+    
+}
+
+if(isset($_GET['action']) && $_GET['action']=='deleteCompte'){
+include_once('../modele/Admin.php');  
+CategoryGestionnaire::deleteCompte($_GET['id']);
+include_once('../vue/AfficherLesComptes.php');
+}
+
 ?>
 
-<?php
-// Parcourir les comptes et les afficher
-foreach ($accounts as $account) {
-    echo "ID: " . $account['id'] . "<br>";
-    echo "Username: " . $account['username'] . "<br>";
-    echo "First Name: " . $account['first_name'] . "<br>";
-    echo "Last Name: " . $account['last_name'] . "<br>";
-    echo "Email: " . $account['mail'] . "<br>";
-    echo "Role ID: " . $account['id'] . "<br>";
-    echo "<br>";
-}
-?>

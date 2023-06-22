@@ -14,6 +14,7 @@
             <th>Last Name</th>
             <th>Email</th>
             <th>Role ID</th>
+            <th></th>
         </tr>
         <?php
         include_once('../controlleurs/Admin_controlleur.php');
@@ -29,6 +30,7 @@
             <td><?php echo $account['last_name']; ?></td>
             <td><?php echo $account['mail']; ?></td>
             <td><?php echo $account['role_id']; ?></td>
+            <td><a href="Admin_controlleur.php?action=deleteCompte&id=<?=$account['id']?>">Supprimer</a></td>
         </tr>
         <?php endforeach; ?>
     </table>

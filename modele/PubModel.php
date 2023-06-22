@@ -16,7 +16,7 @@ class PubModel
     {
         $con = DBConnexion::getDBConnexion();
         $query = " select * from users inner join users_role on users.id=users_role.user_id ";
-        $query = $query . "inner join role on users_role.role_id=role.id where username = :username";
+        $query = $query . "inner join role on users_role.role_id=role.id where username = :username AND users.deleted=0";
         $stmt = $con->prepare($query);
         $stmt->bindParam(':username', $username);
         $stmt->execute();
