@@ -26,7 +26,9 @@
 
 <body>
 
-
+  <?php
+  include '../vue/header_menu.php';
+  ?>
 
   <nav id="navBar" class="navbar-white">
     <img src="/Appartements_Images/logomarque.svg" class="logo">

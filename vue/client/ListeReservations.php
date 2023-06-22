@@ -16,6 +16,9 @@
 </head>
 
 <body>
+    <?php
+    include '../vue/header_menu.php';
+    ?>
     <div class="container">
         <header id="header">
             <a href="/index.php">

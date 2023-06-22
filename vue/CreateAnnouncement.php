@@ -13,7 +13,9 @@ include_once('../modele/TypeLogements.php');
 </head>
 
 <body>
-
+    <?php
+    include '../vue/header_menu.php';
+    ?>
     <h1>Ajouter un logement<h1>
 
             <h2>Description du logement</h2>

@@ -62,6 +62,9 @@
 </style>
 
 <body>
+  <?php
+  include '../vue/header_menu.php';
+  ?>
   <div class="reservation">
     <p>Reservation à venir :</p>
     <h2>

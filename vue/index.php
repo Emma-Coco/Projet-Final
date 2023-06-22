@@ -641,6 +641,7 @@
           fill="black" />
       </svg>
     </a>
+
     <form action="../controlleurs/pub_controlleur.php" method="post">
       <input type="hidden" name="action" value="searchLogements" />
       <div class="header__info">
@@ -676,6 +677,7 @@
         </div>
       </div>
     </form>
+
     <?php
     if (isset($_SESSION['username']))
       include 'client/menu_berger.php';
@@ -729,13 +731,11 @@
             ?>
             <a href="../controlleurs/pub_controlleur.php?action=detailsLogement&id_logement=<?php echo $logement['id']; ?>">
               <article class="card__item">
-                <img class="card__item--image"
-                  src="/vue/Images/Appartements_images/<?php if (file_exists('../vue/Images/Appartements_images/' . $logement['url'])) {
-                    echo $logement['url'];
-                  } else {
-                    echo 'defaut.png';
-                  } ?>"
-                  alt="Photo appartement" c />
+                <img class="card__item--image" src="/vue/Images/Appartements_images/<?php if (file_exists('../vue/Images/Appartements_images/' . $logement['url'])) {
+                  echo $logement['url'];
+                } else {
+                  echo 'defaut.png';
+                } ?>" alt="Photo appartement" c />
                 <h3 class="card__description--name">
                   <?php echo $logement['name']; ?>
                 </h3>

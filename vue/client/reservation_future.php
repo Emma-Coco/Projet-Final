@@ -147,6 +147,9 @@
 </head>
 
 <body>
+  <?php
+  include '../vue/header_menu.php';
+  ?>
   <div class="reservation">
     <?php
     if ($alert != NULL) {
