@@ -21,12 +21,11 @@ class PubModel
         $stmt->bindParam(':username', $username);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-       
 
         if (!$result) {
             return NULL;
         } else {
-            if ($result[0]['password'] != $password)
+            if (!password_verify($password, $result[0]['password']))
                 return NULL;
             $roles = [];
             foreach ($result as $row) {
@@ -57,7 +56,8 @@ class PubModel
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':first_name', $first_name);
         $stmt->bindParam(':last_name', $last_name);
-        $stmt->bindParam(':password', $password);
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $stmt->bindParam(':password', $hashedPassword);
         $stmt->bindParam(':mail', $mail);
         $stmt->bindParam(':phone', $phone);
         $stmt->execute();
@@ -226,19 +226,11 @@ class PubModel
         // ramener les services offerts par le logement
         $logement['services'] = self::getLogementServices($id_logement);
 
-
         // ramene les avis sur le logement sous forme de dictionnaire [username]=avis
         $logement['avis'] = self::getLogementAvis($id_logement);
 
-
-        //Infos de latitude et longitude pour la map
-        $logement['latitude'] = $logement['position_lat'];
-        $logement['longitude'] = $logement['position_long'];
-
-
         return $logement;
     }
-    
 
 
     // function qui ramene les services d'un logement specifique (selon le id du logement passe en parametre) 

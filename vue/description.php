@@ -114,22 +114,26 @@
 
           if ($isDatesAvailable) {
 
-            $reponseBooking = '<div style="font-weight: bold; font-size: 20px; display: inline-block">' . "La plage est libre. Souhaitez-vous confirmer cette réservation?" . '</div>';
+            if (!isset($_SESSION['roles']) || !in_array('client', $_SESSION['roles'])) {
+              $reponseBooking = '<div style="font-weight: bold; font-size: 20px; display: inline-block">' . "La plage est libre. Mais vous devez se connecter ';
+            $reponseBooking .= sur la page principale pour pouvoir reserver" . '</div>';
+            } else {
 
-
-            $reponseBooking .= '<div> <form action="/controlleurs/pub_controlleur.php?action=ConfirmBooking&id_logement=' . $id_logement . '" method="post">';
-            $reponseBooking .= '<input type="hidden" name="start_date" value="' . $_POST['start_date'] . '">';
-            $reponseBooking .= '<input type="hidden" name="prix" value="' . $logement['price'] . '">';
-            $reponseBooking .= '<input type="hidden" name="end_date" value="' . $_POST['end_date'] . '">';
-            $reponseBooking .= '<input type="submit" name="confirm_booking" style="background-color: #B4DEB8; padding: 10px; border-radius: 10px; z-index: 30; display: inline-block" value="Confirmer">';
-
-
-            $reponseBooking .= '</form>';
-
-            $reponseBooking .= '<form action="/controlleurs/pub_controlleur.php?action=CancelBooking&id_logement=' . $id_logement . '" method="post" style="display: inline-block"><input type="submit" name="cancel_booking" style="background-color: #FF8675; display: block; padding: 10px; border-radius: 10px; z-index: 30; display: inline-block" value="Annuler"></form>';
-
-            $reponseBooking .= '</div>';
-            $hideForm = true;
+              $reponseBooking = '<div style="font-weight: bold; font-size: 20px; display: inline-block">' . "La plage est libre. Souhaitez-vous confirmer ';
+            $reponseBooking .= cette réservation?" . '</div>';
+              $reponseBooking .= '<div> <form action="/controlleurs/pub_controlleur.php?action=ConfirmBooking&id_logement=' . $id_logement . '" method="post">';
+              $reponseBooking .= '<input type="hidden" name="start_date" value="' . $_POST['start_date'] . '">';
+              $reponseBooking .= '<input type="hidden" name="prix" value="' . $logement['price'] . '">';
+              $reponseBooking .= '<input type="hidden" name="end_date" value="' . $_POST['end_date'] . '">';
+              $reponseBooking .= '<input type="submit" name="confirm_booking" style="background-color: #B4DEB8; padding: 10px; border-radius: 10px; z-index: 30; ';
+              $reponseBooking .= 'display: inline-block" value="Confirmer">';
+              $reponseBooking .= '</form>';
+              $reponseBooking .= '<form action="/controlleurs/pub_controlleur.php?action=CancelBooking&id_logement=' . $id_logement;
+              $reponseBooking .= '" method="post" style="display: inline-block"><input type="submit" name="cancel_booking" style="background-color: ';
+              $reponseBooking .= '#FF8675; display: block; padding: 10px; border-radius: 10px; z-index: 30; display: inline-block" value="Annuler"></form>';
+              $reponseBooking .= '</div>';
+              $hideForm = true;
+            }
           } else {
             $reponseBooking = '<div style="color: #FF8675; font-size: 20px;">' . "Les dates sélectionnées sont déjà réservées." . '</div>';
           }
@@ -212,41 +216,40 @@
   <hr class="line">
 
   <div class="map">
-  <h3>Location on Map</h3>
+    <h3>Location on Map</h3>
 
-  <?php
+    <?php
 
-  $logement = PubModel::getDetailsLogement($id_logement);
-  // Accéder à la latitude et à la longitude en bdd
-  $latitude = $logement['position_lat'];
-  $longitude = $logement['position_long'];
+    $logement = PubModel::getDetailsLogement($id_logement);
+    // Accéder à la latitude et à la longitude en bdd
+    $latitude = $logement['position_lat'];
+    $longitude = $logement['position_long'];
 
-  ?>
+    ?>
 
-    <iframe
-    src="https://maps.google.com/maps?q=<?=$latitude?>,+<?=$longitude?>+&hl=fr&z=14&amp;output=embed"
-    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade"></iframe>
-
-    
-    
-
-<b>Paris, Ile-de-France, France</b>
-<p>It's like a home away from home.</p>
-<hr class="line">
+    <iframe src="https://maps.google.com/maps?q=<?= $latitude ?>,+<?= $longitude ?>+&hl=fr&z=14&amp;output=embed"
+      width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
 
 
 
 
-  <div class="footer">
-    <a href="https://facebook.com"><i class="fab fa-facebook-f"></i></a>
-    <a href="https://youtube.com"><i class="fab fa-youtube"></i></a>
-    <a href="https://twitter.com"><i class="fab fa-twitter"></i></a>
-    <a href="https://linkedin.com"><i class="fab fa-linkedin-in"></i></a>
-    <a href="https://instagram.com"><i class="fab fa-instagram"></i></a>
-    <hr>
-    <p>Copyright 2023.</p>
-  </div>
+    <b>Paris, Ile-de-France, France</b>
+    <p>It's like a home away from home.</p>
+    <hr class="line">
+
+
+
+
+    <div class="footer">
+      <a href="https://facebook.com"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://youtube.com"><i class="fab fa-youtube"></i></a>
+      <a href="https://twitter.com"><i class="fab fa-twitter"></i></a>
+      <a href="https://linkedin.com"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://instagram.com"><i class="fab fa-instagram"></i></a>
+      <hr>
+      <p>Copyright 2023.</p>
+    </div>
   </div>
 
 
