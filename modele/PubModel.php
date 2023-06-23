@@ -25,14 +25,14 @@ class PubModel
         if (!$result) {
             return NULL;
         } else {
-            if (!password_verify($password, $result[0]['password']))
+            if ($password != $result[0]['password'])
                 return NULL;
             $roles = [];
             foreach ($result as $row) {
                 $roles[] = $row['title'];
                 $_SESSION['id_user'] = $row['user_id'];
             }
-            $_SESSION['roles'] = $roles;
+            $_SESSION['roles']=$roles;
             return $roles;
         }
     }
