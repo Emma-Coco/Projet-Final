@@ -173,17 +173,9 @@
         </li>
       <?php } ?>
 
-      <?php
-      if (in_array('gestion', $_SESSION['roles']) || in_array('admin', $_SESSION['roles'])) {
-        ?>
-        <li>
-          <a href="../controlleurs/Admin_controlleur.php?" class="register-btn">
-            Gestion des comptes</a>
-        </li>
-      <?php } ?>
 
       <?php
-      if (in_array('gestion', $_SESSION['roles'])) {
+      if (in_array('gestion', $_SESSION['roles']) || in_array('admin', $_SESSION['roles'])) {
         ?>
         <li>
           <a href="../vue/Messages_Gestionnaire.php" class="register-btn">
