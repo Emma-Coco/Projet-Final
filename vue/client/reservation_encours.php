@@ -157,7 +157,6 @@
 </style>
 
 <body>
-  
   <div class="reservation">
     <h2>
       <?php echo $detailReservation['name'] . ' : ' . $detailReservation['fullname']; ?>

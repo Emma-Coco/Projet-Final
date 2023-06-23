@@ -637,6 +637,7 @@
 </style>
 
 <body>
+
   <header id="header">
     <a href="../controlleurs/pub_controlleur.php">
       <svg width="180" height="60" viewBox="0 0 800 300" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -719,7 +720,6 @@
     <div class="info">
       <br />
       <h1>Logements a Paris</h1>
-
       <div class="info__orders">
         <h2 style="font-weight:400;">Le logement à nous, pour vous, avec vous.</h2>
       </div>
@@ -764,16 +764,6 @@
     <footer>
       <div class="backToTop">
         <a href="#">Retour au sommet</a>
-      </div>
-
-      <div class="socialMedia">
-        <a href="#" target="_blank">
-          <i class="fab fa-github fa-2x socialMedia__icon"></i>
-        </a>
-
-        <a href="#" target="_blank">
-          <i class="fab fa-linkedin-in fa-2x socialMedia__icon"></i>
-        </a>
       </div>
 
       <p>© 2023 Hetic, Inc. All rights reserved</p>
