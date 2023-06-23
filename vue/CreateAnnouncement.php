@@ -69,15 +69,11 @@ include_once('../modele/TypeLogements.php');
 </head>
 
 <body>
-    <h1>Ajouter un logement</h1>
+
 
     <form enctype="multipart/form-data" action="../controlleurs/CreateAnnouncement.php" method="POST">
         <label for="nom">Nom :</label>
-        <input type="text" id="nom" name="nom" required placeholder="Entrez le nom">
-
-        <label for="description">Description :</label>
-        <textarea id="description" name="description" rows="4" cols="50" required
-            placeholder="Décrivez l'hébergement"></textarea>
+        <input type="text" id="nom" name="nom" required placeholder="Entrez le nom"
 
         <label for="latitude">Latitude :</label>
         <input type="text" id="latitude" name="latitude" required placeholder="Ex: 48.8566">
@@ -111,11 +107,6 @@ include_once('../modele/TypeLogements.php');
 
         <!-- Ajout des services -->
 
-        <h2>Ajouter des services au logement</h2>
-        <h3>Services disponibles :</h3>
-        <!-- Services here -->
-
-        <h2>Ajouter des images</h2>
 
         <label for="folder">Nom du dossier :</label>
         <input type="text" name="folder" id="folder" required>
@@ -126,8 +117,6 @@ include_once('../modele/TypeLogements.php');
         <label for="directory">Image principale :</label>
         <input type="text" id="directory" name="directory" placeholder="Nom_du_dossier/url_image" required>
 
-        <input type="submit" value="Envoyer">
-    </form>
 </body>
 
 </html>

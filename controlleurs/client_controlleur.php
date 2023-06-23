@@ -62,7 +62,8 @@ if ($action == 'detailsReservation') {
 if ($action == 'ajouterAvisReservation') {
     $id_reservation = $_REQUEST['id_reservation'];
     $avis = $_REQUEST['avis'];
-    ClientModel::ajouterAvisReservation($id_reservation, $avis, $_SESSION['username']);
+    $stars = $_REQUEST['stars'];
+    ClientModel::ajouterAvisReservation($id_reservation, $avis, $stars, $_SESSION['username']);
 
     header('location:http://localhost:8888/controlleurs/client_controlleur.php?action=listeReservations');
 }

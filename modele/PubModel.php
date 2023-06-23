@@ -5,18 +5,18 @@ class PubModel
 {
 
 
-    public static function getPrimaryLogement()
-    {
-        $con = DBConnexion::getDBConnexion();
+    // public static function getPrimaryLogement()
+    // {
+    // $con = DBConnexion::getDBConnexion();
 
-    }
+    // }
 
 
     public static function getRoles($username, $password)
     {
         $con = DBConnexion::getDBConnexion();
         $query = " select * from users inner join users_role on users.id=users_role.user_id ";
-        $query = $query . "inner join role on users_role.role_id=role.id where username = :username";
+        $query = $query . "inner join role on users_role.role_id=role.id where username = :username AND users.deleted=0";
         $stmt = $con->prepare($query);
         $stmt->bindParam(':username', $username);
         $stmt->execute();
@@ -25,13 +25,14 @@ class PubModel
         if (!$result) {
             return NULL;
         } else {
-            if (!password_verify($password, $result[0]['password']))
+            if ($password != $result[0]['password'])
                 return NULL;
             $roles = [];
             foreach ($result as $row) {
                 $roles[] = $row['title'];
                 $_SESSION['id_user'] = $row['user_id'];
             }
+            $_SESSION['roles']=$roles;
             return $roles;
         }
     }
@@ -228,7 +229,7 @@ class PubModel
         // ramener les services offerts par le logement
         $logement['services'] = self::getLogementServices($id_logement);
 
-        // ramene les avis sur le logement sous forme de dictionnaire [username]=avis
+        // ramene les avis sur le logement sous forme de dictionnaire [username]=[stars,avis]
         $logement['avis'] = self::getLogementAvis($id_logement);
 
         return $logement;
@@ -308,7 +309,7 @@ class PubModel
     public static function getLogementAvis($id_logement)
     {
         $con = DBConnexion::getDBConnexion();
-        $query = "select avis_client, username from booking inner join users on users.id=booking.id_user where id_logement=:id_logement";
+        $query = "select avis_client, stars, username from booking inner join users on users.id=booking.id_user where id_logement=:id_logement";
         $stmt = $con->prepare($query);
         $stmt->bindParam(':id_logement', $id_logement);
         $stmt->execute();
@@ -319,7 +320,7 @@ class PubModel
         } else {
             $avis_dic = [];
             foreach ($avis as $avi) {
-                $avis_dic[$avi['username']] = $avi['avis_client'];
+                $avis_dic[$avi['username']] = ['stars' => $avi['stars'], 'texte' => $avi['avis_client']];
             }
             return $avis_dic;
         }

@@ -7,8 +7,8 @@ echo '<pre>';
 var_dump($_REQUEST);
 echo '</pre>';
 
-$query = "INSERT INTO logement (name, description, position_lat, position_long, adress, number_of_travelers, price, id_type_logement, bedroom_number, kitchen, bathroom_number, created_at) ";
-$query .= "VALUES (:name, :description, :position_lat, :position_long, :adress, :number_of_travelers, :price, :id_type_logement, :bedroom_number, :kitchen, :bathroom_number, :created_at)";
+$query = "INSERT INTO logement (name, description, position_lat, position_long, adress, number_of_travelers, price, id_type_logement, bedroom_number, kitchen, bathroom_number) ";
+$query .= "VALUES (:name, :description, :position_lat, :position_long, :adress, :number_of_travelers, :price, :id_type_logement, :bedroom_number, :kitchen, :bathroom_number)";
 $stmt = $con->prepare($query);
 $stmt->bindParam(':name', $_REQUEST["nom"]);
 $stmt->bindParam(':description', $_REQUEST["description"]);
@@ -21,7 +21,6 @@ $stmt->bindParam(':id_type_logement', $_REQUEST["typeLogement"]);
 $stmt->bindParam(':bedroom_number', $_REQUEST["chambres"]);
 $stmt->bindParam(':kitchen', $_REQUEST["cuisine"]);
 $stmt->bindParam(':bathroom_number', $_REQUEST["sallesDeBain"]);
-$stmt->bindParam(':created_at', $_REQUEST["dateCreation"]);
 $stmt->execute();
 $id_logement = $con->lastInsertId();
 
@@ -31,14 +30,12 @@ $con = DBConnexion::getDBConnexion();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $services = $_POST["services"];
-    $created_at = $_POST["created_at"];
 
     foreach ($services as $service_id) {
-        $query = "INSERT INTO service_logement (id_service, id_logement, created_at) VALUES (:id_service, :id_logement, :created_at)";
+        $query = "INSERT INTO service_logement (id_service, id_logement) VALUES (:id_service, :id_logement)";
         $stmt = $con->prepare($query);
         $stmt->bindParam(':id_service', $service_id);
         $stmt->bindParam(':id_logement', $id_logement);
-        $stmt->bindParam(':created_at', $created_at);
 
         if ($stmt->execute()) {
             echo "Service ajouté avec succès : Service ID = " . $service_id . "<br>";
@@ -48,12 +45,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
-// Charger un dossier d'images, et sélectionner l'image principale
+// Récupérer les images, de manière récursive, incluses dans chaque sous-dossier
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $directory = $_POST["directory"];
-
-    
 
     if ($con) {
         // Connexion réussie
@@ -64,19 +59,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             // Insérer les URL des images dans la table "picture" avec l'ID du logement
             //foreach ($images as $image) {
-                $directory = $_POST['directory'];
-                $targetDirectory = '../vue/Images/Appartements_images/';
-
-                if (!empty($_FILES['images']['name'])) {
-                    $targetPath = $targetDirectory . basename($_FILES['images']['name']);
-                    if (move_uploaded_file($_FILES['images']['tmp_name'], $targetPath)) {
-                        // Téléchargement réussi, vous pouvez effectuer d'autres traitements si nécessaire
-                        echo "Le dossier d'images a été téléchargé et stocké avec succès.";
-                    } else {
-                        echo "Une erreur s'est produite lors du téléchargement du dossier d'images.";
-                    }
-                }
-
                 $sql = "INSERT INTO picture (url, id_logement) VALUES (:url, :id_logement)";
                 $stmt = $con->prepare($sql);
                 $stmt->bindParam(':url', $directory);

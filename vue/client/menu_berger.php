@@ -115,11 +115,21 @@
           <li>Afficher les détails des logements</li>
           <li>Réserver un logement</li>
         </ul> -->
-      <li>
+        <?php
+          if (!in_array('gestion', $_SESSION['roles']) || !in_array('admin', $_SESSION['roles']) || !in_array('logistique', $_SESSION['roles'])) {
+        ?>
+        <li>
         <a href="../controlleurs/client_controlleur.php?action=listeReservations">
           Consulter les réservations</a>
-      </li>
-      <li>Favoris</li>
+      </li><?php } ?>
+      <?php
+          if (!in_array('gestion', $_SESSION['roles']) || !in_array('admin', $_SESSION['roles']) || !in_array('logistique', $_SESSION['roles'])) {
+        ?>
+      <li>Favoris</li><?php } ?>
+
+      <?php
+          if (!in_array('gestion', $_SESSION['roles']) || !in_array('admin', $_SESSION['roles']) || !in_array('logistique', $_SESSION['roles'])) {
+        ?>
       <li>
         <a href="../vue/client/assistancehtml.php">
           assistance </a>
@@ -127,7 +137,8 @@
           <li>Contacter l'assistance clientèle</li>
           <li>Consulter la foire aux questions</li>
         </ul>
-      </li>
+      </li><?php } ?>
+
       <li><a href="../controlleurs/client_controlleur.php?action=monCompte">Mon compte</li>
 
       <?php
@@ -140,6 +151,20 @@
         </li>
       <?php
       }
+      ?>
+
+
+    <?php
+      if (in_array('gestion', $_SESSION['roles']) || in_array('admin', $_SESSION['roles'])) {
+        ?>
+        <li>
+          <a href="../vue/Messages_Gestionnaire.php" class="register-btn">
+            Messages</a>
+        </li>
+      <?php } ?>
+
+
+      <?php
       if (in_array('gestion', $_SESSION['roles']) || in_array('logistique', $_SESSION['roles'])) {
         ?>
         <li>
@@ -147,6 +172,17 @@
             Logistique</a>
         </li>
       <?php } ?>
+
+
+      <?php
+      if (in_array('gestion', $_SESSION['roles']) || in_array('admin', $_SESSION['roles'])) {
+        ?>
+        <li>
+          <a href="../vue/Messages_Gestionnaire.php" class="register-btn">
+            Gestion des comptes</a>
+        </li>
+      <?php } ?>
+
       <li>
         <a href="../controlleurs/pub_controlleur.php?action=logout" class="register-btn">
           Déconnexion</a>

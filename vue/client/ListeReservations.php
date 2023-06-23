@@ -16,22 +16,6 @@
 </head>
 
 <body>
-    <style>
-        body {
-        background-color: #1b1b1b;
-        font-family: Roboto, sans-serif;
-        margin: 0 auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-decoration: none;
-        color: white;
-        text-transform: uppercase;
-        font-weight: bold;
-        font-size: 80px;
-        }
-    </style>
-
     <div class="container">
         <header id="header">
         

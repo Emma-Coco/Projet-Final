@@ -12,7 +12,6 @@
   <style>
     html,
     body {
-      height: 100%;
       margin: 0;
       display: flex;
       justify-content: center;
@@ -37,7 +36,7 @@
 
     h2 {
       color: #333;
-      margin-top: 0;
+      margin-top: 20px;
     }
 
     p {
@@ -61,7 +60,6 @@
 
 
 <body>
-  
   <div>
   <a href="../controlleurs/pub_controlleur.php">
     <svg width="500" height="100" viewBox="0 0 800 300" fill="none" xmlns="http://www.w3.org/2000/svg">

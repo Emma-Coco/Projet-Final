@@ -65,7 +65,7 @@
 
 <body>
   <?php
-  include '../vue/header_menu.php';
+  include '../modele/Messages.php';
   ?>
   <div class="message-block">
     <h1>HISTORIQUE DE MESSAGES</h1>
@@ -82,8 +82,12 @@
           }
           echo '<div class="content">' . $message['text'] . '</div></div>';
           echo '<div class="message-date">' . $message['created_at'] . '</div>';
+          foreach(MessageRepository::getAllResponse($message['id']) AS $response){
+            echo '<div>'.$response['text'].'</div>';
+          } 
           echo '<div class="message-separator"></div>';
         }
+      
 
       ?>
 
