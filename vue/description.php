@@ -5,13 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
   <title>Description</title>
+  <link rel="shortcut icon" href="/vue/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="/vue/appartement-style.css">
   <link rel="stylesheet" href="/css/styleapp.css">
-  <link rel="stylesheet" href="/css/vanilla-calendar/vanilla-calendar.min.css">
-  <link rel="stylesheet" href="/css/vanilla-calendar/themes/light.min.css">
   <script src="https://kit.fontawesome.com/c4254e24a8.js" crossorigin="anonymous"></script>
 </head>
 <style>
+  body {
+    font-family: Roboto, sans-serif;
+  }
   .user_icon {
     width: 30px;
     height: auto;
@@ -83,14 +90,14 @@ include '../vue/header_menu.php';
 
 
   <div class="small-details">
-    <h2>Entire rental unit hosted by Charles</h2>
+    <br>
     <p>
-      <?php echo $logement['number_of_travelers']; ?> guest &nbsp; &nbsp;
-      <?php echo $logement['bedroom_number']; ?> beds &nbsp; &nbsp;
-      <?php echo $logement['bathroom_number']; ?> bathroom
+      <?php echo $logement['number_of_travelers']; ?> personnes &nbsp; &nbsp;
+      <?php echo $logement['bedroom_number']; ?> lits &nbsp; &nbsp;
+      <?php echo $logement['bathroom_number']; ?> salle de bain
     </p>
     <h4>
-      <?php echo $logement['price']; ?>€ / day
+      <?php echo $logement['price']; ?>€ / jour
     </h4>
   </div>
   <hr class="liner">
@@ -134,8 +141,24 @@ include '../vue/header_menu.php';
     }
   }
   ?>
-  <div class="minors">
-  <div class="check-form">
+  <div style="
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  color:white;
+  gap:20px;
+  "class="minors">
+  <div style="
+  display:flex;
+  flex-direction:column;
+  color:white;
+  padding:20px;
+  overflow:hidden;
+  margin : 0 auto;
+  width: 25%;
+  box-shadow: 0 0 0 0;
+  border : 1px solid black;
+  "class="check-form">
 
     <div class="error">
       <?php
@@ -150,7 +173,7 @@ include '../vue/header_menu.php';
 
       <form class="former" action="../controlleurs/pub_controlleur.php?action=CheckDispo&id_logement=<?= $id_logement ?>"
             method="POST">
-        <div class="start-date" >
+        <div  class="start-date" >
           <label for="start_date">Début :</label>
           <input type="date" id="start_date" name="start_date" required><br><br>
         </div>
@@ -165,7 +188,6 @@ include '../vue/header_menu.php';
       <?php
       }
       ?>
-      <div id="calendar" style="display: flex"></div>
     </div>
     <div class="liste-detail">
       <h1>
@@ -245,7 +267,6 @@ include '../vue/header_menu.php';
 
 
     <b>Paris, Ile-de-France, France</b>
-    <p>It's like a home away from home.</p>
   </div>
 
 
@@ -253,20 +274,11 @@ include '../vue/header_menu.php';
 
 
   <div class="footer">
-    <a href="https://facebook.com"><i class="fab fa-facebook-f"></i></a>
-    <a href="https://youtube.com"><i class="fab fa-youtube"></i></a>
-    <a href="https://twitter.com"><i class="fab fa-twitter"></i></a>
-    <a href="https://linkedin.com"><i class="fab fa-linkedin-in"></i></a>
-    <a href="https://instagram.com"><i class="fab fa-instagram"></i></a>
     <hr class="line">
-    <p>Copyright 2023.</p>
+    <p>HETIC 2023.</p>
   </div>
 </div>
 
-
-
-
-<script src="../css/vanilla-calendar/vanilla-calendar.min.js"></script>
 
 <?php
 require_once '../modele/Booking.php';
@@ -280,39 +292,6 @@ foreach ($reservedDates as $reservation) {
   $calendarDates .= "'" . $reservation['starting_date'] . ":" . $reservation['ending_date'] . "',";
 }
 ?>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const calendar = new VanillaCalendar('#calendar', {
-      // modification à la création
-      //1. Faire une méthode statique qui récupère toutes les dates réservées pour un logement
-      //Select strating date et ending date where id logement et where cancelled = 0... (select, fetch_all, fect_assoc)
-      /*popups: {
-        '2023-06-26': {modifier: 'Reserve'},
-        //ouvrir une balise php pour appeler la méthode statique de ma classe (avec les::)
-      },*/
-      settings: {
-        visibility: {
-          weekend: false,
-          today: false,
-        },
-        selection: {
-          day: 'multiple',
-        },
-        selected: {
-          dates: [<?= $calendarDates ?>],
-        },
-      },
-    });
-    calendar.init();
-
-  });
-
-  var elements = document.getElementsByClassName("vanilla-calendar-days vanilla-calendar-days_selecting");
-  console.log(elements);
-</script>
-
-
 
 <script src="/vue/description-appart.js"></script>
 <script src="https://kit.fontawesome.com/db48a25407.js" crossorigin="anonymous"></script>
