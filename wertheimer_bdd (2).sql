@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : mer. 21 juin 2023 à 10:26
+-- Généré le : ven. 23 juin 2023 à 05:27
 -- Version du serveur : 5.7.39
 -- Version de PHP : 8.2.0
 
@@ -47,7 +47,9 @@ INSERT INTO `action_entretien` (`id`, `entretien_user_id`, `desciption`, `etat_d
 (6, 2, 'J\'ai terminé ', 'j\'ai pas réalise le menage toz je démissionne ', 15, 3, 'terminé', '2023-06-20 19:40:33'),
 (7, 3, 'Vous devez faire le menage dans les chambres', 'Menage', 46, 4, NULL, '2023-06-20 20:28:14'),
 (8, 2, NULL, NULL, NULL, NULL, NULL, '2023-06-20 20:28:14'),
-(10, 1, 'menage', 'menage', 50, 15, 'À faire', '2023-08-22 22:00:00');
+(11, 1, 'menage', 'menage', 51, 1, 'À faire', '2023-09-10 22:00:00'),
+(12, 1, 'menage', 'menage', 53, 1, 'À faire', '2023-10-11 22:00:00'),
+(14, 1, 'Actions d\'entretien habituelles', 'Actions d\'entretien habituelles', 55, 1, 'À faire', '2023-08-06 22:00:00');
 
 -- --------------------------------------------------------
 
@@ -66,19 +68,25 @@ CREATE TABLE `booking` (
   `final_price` float NOT NULL,
   `service_fee` float NOT NULL,
   `taxes` float NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `stars` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `booking`
 --
 
-INSERT INTO `booking` (`id`, `starting_date`, `ending_date`, `cancelled`, `id_logement`, `id_user`, `avis_client`, `final_price`, `service_fee`, `taxes`, `created_at`) VALUES
-(15, '2023-05-05', '2023-05-09', 0, 1, 1, 'gdgdgd', 1860, 0, 0, '2023-06-20 19:27:10'),
-(46, '2023-06-28', '2023-06-29', 0, 1, NULL, NULL, 0, 0, 0, '2023-06-19 18:23:57'),
-(47, '2023-06-30', '2023-07-02', 0, 2, NULL, NULL, 0, 0, 0, '2023-06-19 18:34:29'),
-(48, '2023-06-30', '2023-07-01', 0, 1, NULL, NULL, 0, 0, 0, '2023-06-19 18:34:49'),
-(50, '2023-08-22', '2023-08-23', 0, 15, 1, NULL, 1950, 0, 0, '2023-06-20 23:40:15');
+INSERT INTO `booking` (`id`, `starting_date`, `ending_date`, `cancelled`, `id_logement`, `id_user`, `avis_client`, `final_price`, `service_fee`, `taxes`, `created_at`, `stars`) VALUES
+(15, '2023-09-05', '2023-09-08', 0, 1, 1, 'Super logement', 1860, 0, 0, '2023-06-20 19:27:10', 0),
+(46, '2023-06-28', '2023-06-29', 0, 1, NULL, NULL, 0, 0, 0, '2023-06-19 18:23:57', 0),
+(47, '2023-06-30', '2023-07-02', 0, 2, NULL, NULL, 0, 0, 0, '2023-06-19 18:34:29', 0),
+(48, '2023-06-30', '2023-07-01', 0, 1, NULL, NULL, 0, 0, 0, '2023-06-19 18:34:49', 0),
+(51, '2023-09-09', '2023-09-11', 0, 1, 2, 'Excellent logement.', 1860, 0, 0, '2023-06-21 12:52:25', 0),
+(52, '2023-05-05', '2023-05-07', 0, 1, 5, 'C\'est tres bien', 0, 0, 0, '2023-06-21 13:31:38', 0),
+(53, '2023-10-10', '2023-10-12', 0, 1, NULL, NULL, 1860, 0, 0, '2023-06-21 13:38:24', 0),
+(55, '2023-08-06', '2023-08-07', 0, 1, 1, NULL, 1240, 0, 0, '2023-06-22 08:22:34', 0),
+(56, '2023-03-02', '2023-03-06', 0, 1, 1, '', 0, 0, 0, '2023-06-22 19:11:13', 3),
+(57, '2023-06-22', '2023-06-28', 0, 3, 1, NULL, 0, 0, 0, '2023-06-22 19:35:25', 0);
 
 -- --------------------------------------------------------
 
@@ -135,19 +143,21 @@ CREATE TABLE `messages` (
   `text` varchar(255) DEFAULT NULL,
   `id_booking` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `response_of_idMessage` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `messages`
 --
 
-INSERT INTO `messages` (`id`, `text`, `id_booking`, `user_id`, `created_at`) VALUES
-(8, 'Bonjour j\'ai une question', 1, 1, '2023-06-19 15:29:38'),
-(13, 'bonjour bonjour\r\n', 1, 1, '2023-06-20 08:03:10'),
-(16, 'bonjour ', 8, 1, '2023-06-20 15:44:21'),
-(17, 'dgdgggdgdg', 14, 1, '2023-06-20 18:05:02'),
-(20, 'Bonjour j\'ai une question sur ma reservation', 50, 1, '2023-06-20 23:42:32');
+INSERT INTO `messages` (`id`, `text`, `id_booking`, `user_id`, `created_at`, `response_of_idMessage`) VALUES
+(8, 'Bonjour j\'ai une question', 1, 1, '2023-06-19 15:29:38', NULL),
+(13, 'bonjour bonjour\r\n', 1, 1, '2023-06-20 08:03:10', NULL),
+(16, 'bonjour ', 8, 1, '2023-06-20 15:44:21', NULL),
+(17, 'dgdgggdgdg', 14, 1, '2023-06-20 18:05:02', NULL),
+(22, 'HSHHSHSH', 15, 1, '2023-06-22 19:35:40', NULL),
+(23, 'HHH', 15, 1, '2023-06-22 19:37:15', NULL);
 
 -- --------------------------------------------------------
 
@@ -171,7 +181,7 @@ INSERT INTO `picture` (`id`, `url`, `id_logement`, `created_at`) VALUES
 (2, 'L.2/principale.jpg', 2, '2023-06-13 16:05:37'),
 (4, 'L.3/principale.jpg', 3, '2023-06-13 17:46:08'),
 (5, 'L.4/principale.jpg', 4, '2023-06-13 17:53:16'),
-(6, 'L.5/vv.jpg', 5, '2023-06-13 17:58:26'),
+(6, 'L.5/principale.jpg', 5, '2023-06-13 17:58:26'),
 (7, 'L.6/principale.jpg', 6, '2023-06-13 18:01:55'),
 (8, 'L.7/principale.jpg', 7, '2023-06-13 18:12:47'),
 (9, 'L.8/principale.jpg', 8, '2023-06-13 18:16:46'),
@@ -183,7 +193,8 @@ INSERT INTO `picture` (`id`, `url`, `id_logement`, `created_at`) VALUES
 (15, 'L.14/principale.jpg', 14, '2023-06-17 19:25:59'),
 (16, 'L.15/principale.jpg', 15, '2023-06-17 19:55:12'),
 (17, 'L.16/principale.jpg', 16, '2023-06-17 20:09:41'),
-(48, 'L.5/vv.jpg', 5, '2023-06-13 17:58:26');
+(48, 'L.5/vv.jpg', 5, '2023-06-13 17:58:26'),
+(49, 'L.1/1.jpg', 1, '2023-06-21 10:53:53');
 
 -- --------------------------------------------------------
 
@@ -287,23 +298,28 @@ CREATE TABLE `users` (
   `password` varchar(100) DEFAULT NULL,
   `mail` varchar(30) NOT NULL,
   `phone` varchar(30) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `activated` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `first_name`, `last_name`, `password`, `mail`, `phone`, `created_at`) VALUES
-(1, 'ismail', 'Bertin', 'Berol', 'ismail', 'lionelmessi@gmail.com', NULL, '2023-06-10 19:36:50'),
-(2, 'root', 'root', 'root', 'root', 'root@gmail.com', NULL, '2023-06-10 19:37:46'),
-(4, 'Emma0', 'Emma2', 'Emma3', 'Emma4', 'Emma@gmail.com', '1234', '2023-06-11 06:41:17'),
-(5, 'Alvin', 'Alvin2', 'Alvin3', '123', 'Alvin@gmail.com', '12345', '2023-06-11 08:03:17'),
-(6, 'Alvin2', 'Alvin2', 'Alvin3', '123', 'Alvin@gmail.com', '12345', '2023-06-11 08:03:58'),
-(7, 'Bertin', 'Bertin1', 'bertin2', '123', 'bertin@gmail.com', '0634', '2023-06-11 16:09:36'),
-(8, 'toz', 'toz', 'toz', '123', 'toz@gmail.com', '123', '2023-06-11 18:01:33'),
-(9, 'sedfasdf', 'asdfasef', 'asdfsad', 'asdfasdf', 'sdfsd@asddsa.cd', '234234213', '2023-06-15 11:19:17'),
-(10, 'sebastien', 'gestionnaire', 'sebastien', 'sebastien', 'sebastien@gmail.com', '123456', '2023-06-20 07:55:49');
+INSERT INTO `users` (`id`, `username`, `first_name`, `last_name`, `password`, `mail`, `phone`, `created_at`, `deleted`, `activated`) VALUES
+(1, 'ismail', 'Ismail', 'Aslan', '$2y$10$ozU.zUjLUGA1VTBOKy85Zu2bNjIpR0B8N3dSiHUZG/iUa7iXzCY.m', 'ismail@gmail.com', NULL, '2023-06-10 19:36:50', 0, 1),
+(2, 'root', 'root', 'root', '$2y$10$jztF0NozVqlbzWGhO8xUvOIO7.bxIqaho5vh9gb4e7lLh4.dNfFHW', 'root@gmail.com', NULL, '2023-06-10 19:37:46', 0, 1),
+(4, 'Emma0', 'Emma2', 'Emma3', 'Emma4', 'Emma@gmail.com', '1234', '2023-06-11 06:41:17', 0, 1),
+(5, 'Alvin', 'Alvin2', 'Alvin3', '123', 'Alvin@gmail.com', '12345', '2023-06-11 08:03:17', 0, 1),
+(6, 'Alvin2', 'Alvin2', 'Alvin3', '123', 'Alvin@gmail.com', '12345', '2023-06-11 08:03:58', 0, 1),
+(7, 'Bertin', 'Bertin1', 'bertin2', '123', 'bertin@gmail.com', '0634', '2023-06-11 16:09:36', 0, 1),
+(8, 'toz', 'toz', 'toz', '123', 'toz@gmail.com', '123', '2023-06-11 18:01:33', 0, 1),
+(9, 'sedfasdf', 'asdfasef', 'asdfsad', 'asdfasdf', 'sdfsd@asddsa.cd', '234234213', '2023-06-15 11:19:17', 0, 1),
+(10, 'sebastien', 'gestionnaire', 'sebastien', 'sebastien', 'sebastien@gmail.com', '123456', '2023-06-20 07:55:49', 0, 1),
+(11, 'toto', 'toto', 'toto', '$2y$10$ZVb0EZiAC549lgG6zcx0fO0wntfNuIJJDmpA0KSN3arRzGBzmLQkq', 'toto@gmail.com', '123456', '2023-06-21 10:26:48', 0, 1),
+(12, 'Haris', 'Jordan', 'Jordan', '123', 'jordan@gmail.com', '1234', '2023-06-22 06:35:26', 0, 1),
+(13, 'chris', 'chris', 'chris', '$2y$10$rnXPnyyDn1aU7FKQSTUje.ik6JLjxaTHXPXNC4m4loj75d9/2Ati2', 'chris@gmail.com', '123', '2023-06-23 05:20:13', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -333,7 +349,10 @@ INSERT INTO `users_role` (`user_id`, `role_id`, `created_at`) VALUES
 (7, 1, '2023-06-11 16:09:36'),
 (8, 1, '2023-06-11 18:01:33'),
 (9, 1, '2023-06-15 11:19:17'),
-(10, 2, '2023-06-20 07:56:17');
+(10, 2, '2023-06-20 07:56:17'),
+(11, 1, '2023-06-21 10:26:48'),
+(12, 1, '2023-06-22 06:35:26'),
+(13, 1, '2023-06-23 05:20:13');
 
 --
 -- Index pour les tables déchargées
@@ -421,13 +440,13 @@ ALTER TABLE `users_role`
 -- AUTO_INCREMENT pour la table `action_entretien`
 --
 ALTER TABLE `action_entretien`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT pour la table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT pour la table `logement`
@@ -439,19 +458,19 @@ ALTER TABLE `logement`
 -- AUTO_INCREMENT pour la table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT pour la table `picture`
 --
 ALTER TABLE `picture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Contraintes pour les tables déchargées
