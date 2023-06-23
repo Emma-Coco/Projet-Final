@@ -10,80 +10,113 @@ include_once('../modele/TypeLogements.php');
 
 <head>
     <title>Formulaire</title>
+    <link rel="shortcut icon" href="/vue/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+    <style>
+        * {
+            margin-bottom: 20px;
+            color: white;
+        }
+        body {
+            font-family: Roboto, sans-serif;
+            margin: 20px;
+            background-color: #1b1b1b;
+        }
+
+        h1 {
+
+            text-align: center;
+        }
+
+        form {
+            width: 500px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        input[type="number"] {
+            width: 80px;
+        }
+
+        input[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+    </style>
 </head>
 
 <body>
 
-    <h1>Ajouter un logement<h1>
 
-            <h2>Description du logement</h2>
+    <form enctype="multipart/form-data" action="../controlleurs/CreateAnnouncement.php" method="POST">
+        <label for="nom">Nom :</label>
+        <input type="text" id="nom" name="nom" required placeholder="Entrez le nom"
 
-            <form action="../controlleurs/CreateAnnouncement.php" method="POST">
-                <label for="nom">Nom :</label>
-                <input type="text" id="nom" name="nom" required placeholder="Entrez le nom"><br><br>
+        <label for="latitude">Latitude :</label>
+        <input type="text" id="latitude" name="latitude" required placeholder="Ex: 48.8566">
 
-                <label for="description">Description :</label>
-                <textarea id="description" name="description" rows="4" cols="50" required
-                    placeholder="Décrivez l'hébergement"></textarea><br><br>
+        <label for="longitude">Longitude :</label>
+        <input type="text" id="longitude" name="longitude" required placeholder="Ex: 2.3522">
 
-                <label for="latitude">Latitude :</label>
-                <input type="text" id="latitude" name="latitude" required placeholder="Ex: 48.8566"><br><br>
+        <label for="adresse">Adresse :</label>
+        <input type="text" id="adresse" name="adresse" required placeholder="Entrez l'adresse">
 
-                <label for="longitude">Longitude :</label>
-                <input type="text" id="longitude" name="longitude" required placeholder="Ex: 2.3522"><br><br>
+        <label for="voyageurs">Nombre de voyageurs :</label>
+        <input type="number" id="voyageurs" name="voyageurs" required placeholder="Entrez le nombre de voyageurs">
 
-                <label for="adresse">Adresse :</label>
-                <input type="text" id="adresse" name="adresse" required placeholder="Entrez l'adresse"><br><br>
+        <label for="prix">Prix :</label>
+        <input type="number" id="prix" name="prix" required placeholder="Entrez le prix">
 
-                <label for="voyageurs">Nombre de voyageurs :</label>
-                <input type="number" id="voyageurs" name="voyageurs" required
-                    placeholder="Entrez le nombre de voyageurs"><br><br>
+        <label for="typeLogement">Type de logement :</label>
+        <select name="typeLogement" id="typeLogement">
+            <!-- Options here -->
+        </select>
 
-                <label for="prix">Prix :</label>
-                <input type="number" id="prix" name="prix" required placeholder="Entrez le prix"><br><br>
+        <label for="chambres">Nombre de chambres :</label>
+        <input type="number" id="chambres" name="chambres" required placeholder="Entrez le nombre de chambres">
 
-                <label for="typeLogement">Type de logement :</label>
-                <select name="typeLogement" id="typeLogement">
-                    <?php
-                    print(typeLogement::getTypeLogements());
-                    ?>
-                </select><br><br>
+        <label for="cuisine">Cuisine :</label>
+        <input type="text" id="cuisine" name="cuisine" required placeholder="Indiquez s'il y a une cuisine">
 
-                <label for="chambres">Nombre de chambres :</label>
-                <input type="number" id="chambres" name="chambres" required
-                    placeholder="Entrez le nombre de chambres"><br><br>
+        <label for="sallesDeBain">Nombre de salles de bain :</label>
+        <input type="number" id="sallesDeBain" name="sallesDeBain" required
+            placeholder="Entrez le nombre de salles de bain">
 
-                <label for="cuisine">Cuisine :</label>
-                <input type="text" id="cuisine" name="cuisine" required
-                    placeholder="Indiquez s'il y a une cuisine"><br><br>
-
-                <label for="sallesDeBain">Nombre de salles de bain :</label>
-                <input type="number" id="sallesDeBain" name="sallesDeBain" required
-                    placeholder="Entrez le nombre de salles de bain"><br><br>
-
-                <!--ajout des services-->
-
-                <h2>Ajouter des services au logement</h2>
-
-                <h3>Services disponibles :</h3>
-
-                <?php
-
-                typeLogement::GetAllService();
-
-                ?><br>
+        <!-- Ajout des services -->
 
 
-                <h2>Ajouter des images</h2>
+        <label for="folder">Nom du dossier :</label>
+        <input type="text" name="folder" id="folder" required>
 
-                <!--formulaire de récupération des url images-->
-                <label for="directory">Image principale :</label>
-                <input type="text" id="directory" name="directory" placeholder="Nom_Du_Dossier/url.jpg" required>
-                <br>
+        <label for="images">Sélectionner un dossier d'images :</label>
+        <input type="file" id="images" name="images" directory="" webkitdirectory="" mozdirectory="" required>
 
+        <label for="directory">Image principale :</label>
+        <input type="text" id="directory" name="directory" placeholder="Nom_du_dossier/url_image" required>
 
-                <input type="submit" value="Envoyer"><br><br>
-            </form>
 </body>
 
 </html>
