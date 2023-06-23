@@ -4,13 +4,23 @@
 <head>
   <title>Réservation de logement</title>
   <style>
+
+    body{
+      background-color: #1b1b1b;
+      font-family: Roboto, sans-serif;
+    }
+
     .reservation {
-      width: 400px;
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto;
+      min-width: 500px;
+      max-width: 500px;
       padding: 20px;
       background-color: #f2f2f2;
-      margin: 20px auto;
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      justify-content: center;
     }
 
     h2 {
@@ -46,8 +56,8 @@
       margin-top: 10px;
       font-size: 16px;
       text-align: center;
-      background-color: #4caf50;
-      color: white;
+      background-color: white;
+      color: black;
       border: none;
       border-radius: 3px;
       cursor: pointer;
@@ -56,7 +66,8 @@
     .message-button:hover,
     .edit-button:hover,
     .delete-button:hover {
-      background-color: #45a049;
+      background-color: black;
+      color: white;
     }
 
     .message-field {
@@ -71,7 +82,7 @@
 
     .send-button {
       display: block;
-      width: 50%;
+      width: 100%;
       padding: 10px;
       margin-top: 10px;
       font-size: 16px;
@@ -147,10 +158,11 @@
 </head>
 
 <body>
-  <?php
-  include '../vue/header_menu.php';
-  ?>
+
   <div class="reservation">
+  <a href="../controlleurs/client_controlleur.php?action=listeReservations">
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" id="arrow"><path fill="none" d="M0 0h48v48H0z"></path><path d="M40 22H15.66l11.17-11.17L24 8 8 24l16 16 2.83-2.83L15.66 26H40v-4z"></path></svg>
+  </a>
     <?php
     if ($alert != NULL) {
       if ($alert == 'good')

@@ -5,60 +5,155 @@
   <title>Réservation de logement</title>
 </head>
 <style>
-  .reservation {
-    width: 400px;
-    padding: 20px;
-    background-color: #f2f2f2;
-    margin: 20px auto;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  }
+  body{
+      background-color: #1b1b1b;
+      font-family: Roboto, sans-serif;
+    }
 
-  h2 {
-    font-size: 24px;
-    color: #333;
-  }
+    .reservation {
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto;
+      min-width: 500px;
+      max-width: 500px;
+      padding: 20px;
+      background-color: #f2f2f2;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      justify-content: center;
+    }
 
-  p {
-    margin-bottom: 10px;
-    font-size: 16px;
-  }
+    h2 {
+      font-size: 24px;
+      color: #333;
+    }
 
-  .reservation-date,
-  .reservation-price {
-    font-weight: bold;
-  }
+    p {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
 
-  .reservation-rating {
-    color: #ffd700;
-    font-size: 20px;
-  }
+    .reservation-date,
+    .reservation-price {
+      font-weight: bold;
+    }
 
-  .star {
-    display: inline-block;
-  }
+    .reservation-rating {
+      color: #ffd700;
+      font-size: 20px;
+    }
 
-  .message-button,
-  .edit-button,
-  .delete-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    font-size: 16px;
-    text-align: center;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-  }
+    .star {
+      display: inline-block;
+    }
 
-  .message-button:hover,
-  .edit-button:hover,
-  .delete-button:hover {
-    background-color: #45a049;
-  }
+    .message-button,
+    .edit-button,
+    .delete-button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      text-align: center;
+      background-color: white;
+      color: black;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .message-button:hover,
+    .edit-button:hover,
+    .delete-button:hover {
+      background-color: black;
+      color: white;
+    }
+
+    .message-field {
+      display: block;
+      width: 94%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      border-radius: 3px;
+      resize: none;
+    }
+
+    .send-button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      text-align: center;
+      background-color: #434848b2;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 50%;
+      border-radius: 5px;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .modal-input {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 16px;
+      border-radius: 3px;
+    }
+
+    .modal-submit {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      text-align: center;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .modal-submit:hover {
+      background-color: #45a049;
+    }
 </style>
 
 <body>
